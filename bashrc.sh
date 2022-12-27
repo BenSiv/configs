@@ -8,8 +8,11 @@ export PATH="$PATH:/home/bensiv/Python-3.11.0/"
 export PATH="$PATH:/usr/local/go/bin"
 
 # <<< usefull aliases >>>
+alias install='sudo nala install'
+
 # update on one command
-alias update='sudo apt-get update && sudo apt-get upgrade'
+# alias update='sudo apt-get update && sudo apt-get upgrade'
+alias update='sudo nala update && sudo nala upgrade'
 
 alias shutdown='sudo /sbin/shutdown'
 
