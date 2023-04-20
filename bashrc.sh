@@ -23,8 +23,4 @@ alias jupyter-lab='nohup jupyter lab >/dev/null 2>&1 &'
 alias readdir='ls --format=single-column --almost-all --group-directories-first'
 alias rd=readdir
 
-# go to the itc directory
-alias itc='cd ~/Documents/ITC/Main'
-
 alias docker='sudo docker'
-# alias docker='sudo newgrp docker'

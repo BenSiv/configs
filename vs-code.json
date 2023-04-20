@@ -8,19 +8,20 @@
     "terminal.integrated.defaultProfile.linux": "bash",
     "terminal.integrated.automationProfile.linux": {},
     "terminal.integrated.shellIntegration.decorationsEnabled": "never",
-    "terminal.integrated.commandsToSkipShell": ["language-julia.interrupt"],
+    "terminal.integrated.commandsToSkipShell": [
+        "language-julia.interrupt"
+    ],
     "terminal.integrated.profiles.linux": {
         "JavaScript Debug Terminal": null,
     },
     "workbench.activityBar.visible": false,
     "workbench.colorCustomizations": {
-        "statusBar.background" : "#3f0e8d",
-        "statusBar.noFolderBackground" : "#303030",
+        "statusBar.background": "#3f0e8d",
+        "statusBar.noFolderBackground": "#303030",
         "statusBar.debuggingBackground": "#511f1f"
     },
     "scm.diffDecorations": "none",
     "window.menuBarVisibility": "toggle",
-    "breadcrumbs.enabled": false,
     "security.workspace.trust.untrustedFiles": "open",
     "python.defaultInterpreterPath": "/home/bensiv/miniconda3/envs/itc/bin/python",
     "python.linting.enabled": false,
@@ -35,5 +36,14 @@
     "jupyter.widgetScriptSources": [
         "jsdelivr.com",
         "unpkg.com"
-    ]
+    ],
+    "files.associations": {
+        "*.rmd": "markdown"
+    },
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "workbench.startupEditor": "none",
+    "python.terminal.activateEnvironment": false,
+    "window.restoreWindows": "none"
 }
