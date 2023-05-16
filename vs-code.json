@@ -8,42 +8,31 @@
     "terminal.integrated.defaultProfile.linux": "bash",
     "terminal.integrated.automationProfile.linux": {},
     "terminal.integrated.shellIntegration.decorationsEnabled": "never",
+    "terminal.integrated.rightClickBehavior": "default",
     "terminal.integrated.commandsToSkipShell": [
         "language-julia.interrupt"
     ],
-    "terminal.integrated.profiles.linux": {
-        "JavaScript Debug Terminal": null,
-    },
     "workbench.activityBar.visible": false,
+    "workbench.startupEditor": "none",
     "workbench.colorCustomizations": {
         "statusBar.background": "#3f0e8d",
         "statusBar.noFolderBackground": "#303030",
         "statusBar.debuggingBackground": "#511f1f"
     },
-    "scm.diffDecorations": "none",
     "window.menuBarVisibility": "toggle",
+    "window.restoreWindows": "none",
     "security.workspace.trust.untrustedFiles": "open",
-    "python.defaultInterpreterPath": "/home/bensiv/miniconda3/envs/itc/bin/python",
     "python.linting.enabled": false,
+    "python.terminal.activateEnvironment": false,
     "julia.symbolCacheDownload": true,
     "julia.NumThreads": "auto",
     "julia.enableTelemetry": true,
     "julia.execution.codeInREPL": true,
     "julia.execution.resultType": "REPL",
+    "julia.executablePath": "/home/bensiv/julia-1.9.0/bin",
     "notebook.globalToolbar": false,
     "notebook.consolidatedOutputButton": false,
-    "jupyter.askForKernelRestart": false,
-    "jupyter.widgetScriptSources": [
-        "jsdelivr.com",
-        "unpkg.com"
-    ],
     "files.associations": {
         "*.rmd": "markdown"
-    },
-    "[python]": {
-        "editor.formatOnType": true
-    },
-    "workbench.startupEditor": "none",
-    "python.terminal.activateEnvironment": false,
-    "window.restoreWindows": "none"
+    }
 }
