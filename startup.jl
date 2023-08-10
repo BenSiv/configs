@@ -12,3 +12,5 @@ colorscheme!("JuliaDefault")
 # if isfile("Project.toml") && isfile("Manifest.toml")
 #     Pkg.activate(".")
 # end
+
+using MyJulia
