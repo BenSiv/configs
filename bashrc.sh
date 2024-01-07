@@ -20,7 +20,7 @@ alias shutdown='sudo /sbin/shutdown'
 alias jupyter-lab='nohup jupyter lab >/dev/null 2>&1 &'
 
 # my pretty print
-alias readdir='ls --format=single-column --almost-all --group-directories-first'
+alias readdir='ls --format=single-column --almost-all --group-directories-first --color=auto'
 alias rd=readdir
 
 alias docker='sudo docker'
