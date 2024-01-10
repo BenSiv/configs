@@ -33,6 +33,7 @@
     "notebook.globalToolbar": false,
     "notebook.consolidatedOutputButton": false,
     "files.associations": {
-        "*.rmd": "markdown"
+        "*.rmd": "markdown",
+        "*.jmd": "markdown"
     }
 }

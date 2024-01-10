@@ -24,3 +24,8 @@ alias readdir='ls --format=single-column --almost-all --group-directories-first'
 alias rd=readdir
 
 alias docker='sudo docker'
+
+alias sqlite='sqlite3'
+
+export LUA_PATH="/home/bensiv/Documents/lua-utils/src/?.lua;;"
+export LUA_INIT="require('utils').using('utils')"
