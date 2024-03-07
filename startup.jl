@@ -3,12 +3,15 @@ using OhMyREPL
 colorscheme!("JuliaDefault")
 
 using Pkg
-function activate_local_environment()
-    current_dir = normpath(pwd())
-
+function activate_local_environment(current_dir)
+    current_env = dirname(Base.active_project())
     while true
         if isfile(joinpath(current_dir, "Project.toml"))
-            Pkg.activate(current_dir)
+            if current_env != current_dir
+                Pkg.activate(current_dir)
+            else
+                println("Local environment already active")
+            end
             return
         end
 
@@ -19,7 +22,6 @@ function activate_local_environment()
 
         current_dir = parent_dir
     end
-
     println("No Project.toml found in any parent directory.")
 end
 
