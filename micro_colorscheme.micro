@@ -1,0 +1,37 @@
+# Custom color scheme for micro
+
+# Default text color as white
+color-link default "#FFFFFF,#0E0E12"
+
+# Comments as grey
+color-link comment "#808080"
+
+# Strings as dark orange
+color-link constant.string "#D2691E"  # Dark Orange
+
+# Functions as blue (mapped as identifiers)
+color-link identifier "#4B98FA"
+
+# Line numbers as grey
+color-link line-number "#808080,#0E0E12"
+
+# Gutter settings for warnings and errors
+color-link gutter-error "#CB4B16"
+color-link gutter-warning "#E6DB74"
+
+# Customize other elements as needed:
+color-link constant.string.char "#BDE6AD"
+color-link statement "#4B98FA"
+color-link preproc "#F92672"
+color-link symbol "#E1E1E6"
+color-link symbol.tag "#FF79D6"
+color-link symbol.brackets "#E7BE79"
+color-link special "#A6E22E"
+color-link underlined "#D33682"
+color-link error "bold #CB4B16"
+color-link todo "bold #D33682"
+color-link statusline "#0E0E12,#F8F8F2"
+color-link indent-char "#505050,#282828"
+color-link current-line-number "#67FF80,#0E0E12"
+color-link color-column "#0E0E12"
+color-link statusline "#FFFFFF,#000000"
