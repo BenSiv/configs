@@ -15,5 +15,20 @@ source ~/.bashrc
 
 source /root/lua-utils/install_requirements.sh
 
+micro_bindings='{
+    "Alt-/": "lua:comment.comment",
+    "CtrlUnderscore": "lua:comment.comment",
+    "Ctrl-Space": "CommandMode"
+}'
+
+echo $micro_bindings > "/root/.config/micro/bindings.json"
+
+micro_settings='{
+    "colorscheme": "simple"
+}'
+
+echo $micro_settings > "/root/.config/micro/settings.json"
+
+
 # Run the specified command or default to starting a shell
 exec "${@:-bash}"
