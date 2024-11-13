@@ -8,6 +8,8 @@ alias rd=readdir
 alias sqlite='sqlite3'
 alias ted='gnome-text-editor'
 
+alias mde='docker exec -it minimal_dev bash'
+
 export LUA_PATH="/home/bensiv/Documents/lua-utils/src/?.lua;;"
 export LUA_INIT="require('utils').using('utils')"
 
