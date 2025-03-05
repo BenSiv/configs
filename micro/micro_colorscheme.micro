@@ -1,37 +1,32 @@
-# Custom color scheme for micro
+color-link comment "#808080"               # Grey (comments, non-significant part of the code)
+color-link constant "#D19A66"              # Orange (constants, strings)
+color-link identifier "#4682B4"            # Steel Blue (functions, identifiers)
+color-link statement "#C678DD"             # Purple (keywords, statements)
+color-link symbol "#E5C07B"                # Yellow (symbols, operators)
+color-link preproc "#C678DD"               # Purple (preprocessor directives)
+color-link type "#98C379"                  # Green (types, classes)
+color-link special "#C678DD"               # Purple (special elements)
+color-link ignore "default"                # Default color for ignored text
+color-link error "#E06C75"                 # Red (errors)
+color-link todo "#FF0000"                  # Bright red (TODO, notes)
+color-link hlsearch "#E5C07B"              # Yellow (highlight search results)
+color-link statusline "#D4D4D4"            # Light gray (status line)
+color-link indent-char "#808080"           # Grey (indentation)
+color-link line-number "#D19A66"           # Orange-brown (line numbers)
+color-link current-line-number "#FFD700"   # Bright yellow (current line number to make it pop)
+color-link diff-added "#98C379"            # Green (added lines)
+color-link diff-modified "#E5C07B"         # Yellow (modified lines)
+color-link diff-deleted "#E06C75"          # Red (deleted lines)
+color-link gutter-error "#E06C75"          # Red (gutter errors)
+color-link gutter-warning "#E5C07B"        # Yellow (gutter warnings)
 
-# Default text color as white
-color-link default "#FFFFFF,#0E0E12"
+# Cursor line causes readability issues. Disabled for now.
+# color-link cursor-line "#FFFFFF"          # White cursor line (disabled)
 
-# Comments as grey
-color-link comment "#808080"
-
-# Strings as dark orange
-color-link constant.string "#D2691E"  # Dark Orange
-
-# Functions as blue (mapped as identifiers)
-color-link identifier "#4B98FA"
-
-# Line numbers as grey
-color-link line-number "#808080,#0E0E12"
-
-# Gutter settings for warnings and errors
-color-link gutter-error "#CB4B16"
-color-link gutter-warning "#E6DB74"
-
-# Customize other elements as needed:
-color-link constant.string.char "#BDE6AD"
-color-link statement "#4B98FA"
-color-link preproc "#F92672"
-color-link symbol "#E1E1E6"
-color-link symbol.tag "#FF79D6"
-color-link symbol.brackets "#E7BE79"
-color-link special "#A6E22E"
-color-link underlined "#D33682"
-color-link error "bold #CB4B16"
-color-link todo "bold #D33682"
-color-link statusline "#0E0E12,#F8F8F2"
-color-link indent-char "#505050,#282828"
-color-link current-line-number "#67FF80,#0E0E12"
-color-link color-column "#0E0E12"
-color-link statusline "#FFFFFF,#000000"
+color-link color-column "#2E2E2E"          # Dark gray column (subtle)
+color-link type.extended "default"         # No extended type highlighting
+color-link symbol.brackets "default"       # No bracket highlighting
+color-link preproc.shebang "#808080"       # Grey (shebangs same as comments)
+color-link match-brace "#C678DD"           # Purple (matching braces)
+color-link tab-error "#E06C75"             # Red (tab errors)
+color-link trailingws "#E06C75"            # Red (trailing whitespace)
