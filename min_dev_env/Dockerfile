@@ -5,6 +5,9 @@ RUN apt update -y && \
     apt install -y \
     software-properties-common \
     build-essential \
+    make \
+    gcc \
+    libreadline-dev \
     git \
     wget \
     curl \
@@ -12,6 +15,8 @@ RUN apt update -y && \
     tree \
     sqlite3 \
     libsqlite3-dev    
+        
+    
 
 # installing micro editor
 RUN curl https://getmic.ro | bash && \
@@ -24,21 +29,20 @@ RUN cd /root && \
     git clone --recurse-submodules https://github.com/BenSiv/brain-ex.git
 
 ARG LUA_VERSION
-ARG LUAROCKS_VERSION
+# ARG LUAROCKS_VERSION
 # Install lua
 RUN apt-get update -y && \
     apt-get install -y \
     lua${LUA_VERSION} \
-    liblua${LUA_VERSION}-dev
+    liblua${LUA_VERSION}-dev \
+    luarocks
 
-RUN wget https://luarocks.org/releases/luarocks-${LUAROCKS_VERSION}.tar.gz -P /tmp && \
-    tar zxpf /tmp/luarocks-${LUAROCKS_VERSION}.tar.gz -C /tmp && \
-    cd /tmp/luarocks-${LUAROCKS_VERSION} && \
-    ./configure && \
-    make && \
-    make install
-
-RUN luarocks install luafilesystem
+# RUN wget https://luarocks.org/releases/luarocks-${LUAROCKS_VERSION}.tar.gz -P /tmp && \
+#     tar zxpf /tmp/luarocks-${LUAROCKS_VERSION}.tar.gz -C /tmp && \
+#     cd /tmp/luarocks-${LUAROCKS_VERSION} && \
+#     ./configure && \
+#     make && \
+#     make install
 
 RUN apt clean && \
     rm -rf /var/lib/apt/lists/*

@@ -9,8 +9,8 @@ docker image rm minimal-dev
 
 # Build the Docker image
 docker build \
-    --build-arg LUA_VERSION="5.4.7" \
-    --build-arg LUAROCKS_VERSION="3.11.1" \
+    --build-arg LUA_VERSION="5.4" \
+    --build-arg LUAROCKS_VERSION="3.10" \
     --tag minimal-dev .
 
 # Run the Docker container

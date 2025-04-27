@@ -1,12 +1,10 @@
 #!/bin/bash
 
 # Append the commands to ~/.bashrc
-if ! grep -qF "$(cat /root/configs/bashrc.sh)" ~/.bashrc; then
-    cat /root/configs/bashrc.sh >> ~/.bashrc
-    source ~/.bashrc
-fi
+cat /root/configs/bashrc.sh >> ~/.bashrc
+source ~/.bashrc
 
-source /root/lua-utils/install_requirements.sh
+bash /root/lua-utils/install_requirements.sh
 
 cp /root/configs/micro /root/.config/
 cp /root/configs/gitconfig.toml /root/.gitconfig
