@@ -18,6 +18,7 @@ RUN curl https://getmic.ro | bash && \
 	mv ./micro /usr/local/bin
 
 RUN cd /root && \
+	git clone --recurse-submodules https://github.com/BenSiv/configs.git && \
     git clone --recurse-submodules https://github.com/BenSiv/lua-utils.git && \
     git clone --recurse-submodules https://github.com/BenSiv/lua-automations.git && \
     git clone --recurse-submodules https://github.com/BenSiv/brain-ex.git

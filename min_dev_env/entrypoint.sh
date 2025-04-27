@@ -1,34 +1,15 @@
 #!/bin/bash
 
-# Define the PS1 and alias configurations as a string
-my_bash_configs='
-export PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\h\[\033[01;0m\] | \[\033[01;34m\]\w\[\033[01;0m\] > "
-export LUA_PATH="/root/lua-utils/src/?.lua;;"
-export PATH="/root/lua-automations/:${PATH}"
-alias rd="/root/lua-automations/readdir"
-alias brex="/root/brain-ex/brex"
-alias sqlite=sqlite3
-'
 # Append the commands to ~/.bashrc
-echo "$my_bash_configs" >> ~/.bashrc
-source ~/.bashrc
+if ! grep -qF "$(cat /root/configs/bashrc.sh)" ~/.bashrc; then
+    cat /root/configs/bashrc.sh >> ~/.bashrc
+    source ~/.bashrc
+fi
 
 source /root/lua-utils/install_requirements.sh
 
-micro_bindings='{
-    "Alt-/": "lua:comment.comment",
-    "CtrlUnderscore": "lua:comment.comment",
-    "Ctrl-Space": "CommandMode"
-}'
-
-echo $micro_bindings > "/root/.config/micro/bindings.json"
-
-micro_settings='{
-    "colorscheme": "simple"
-}'
-
-echo $micro_settings > "/root/.config/micro/settings.json"
-
+cp /root/configs/micro /root/.config/
+cp /root/configs/gitconfig.toml /root/.gitconfig
 
 # Run the specified command or default to starting a shell
 exec "${@:-bash}"
