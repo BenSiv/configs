@@ -1,0 +1,28 @@
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-space": "command_palette::Toggle",
+      "ctrl-.": "editor::ShowCompletions",
+      "ctrl-shift-.": "editor::ToggleCodeActions"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-space": "command_palette::Toggle"
+    }
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "ctrl-g space": "git::StageAll"
+    }
+  },
+  {
+    "context": "GitDiff > Editor",
+    "bindings": {
+      "ctrl-g space": "git::StageAll"
+    }
+  }
+]
