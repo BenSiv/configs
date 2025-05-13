@@ -1,8 +1,8 @@
+using Pkg
 using MyJulia
 using OhMyREPL
 colorscheme!("JuliaDefault")
 
-using Pkg
 function activate_local_environment(current_dir)
     current_env = dirname(Base.active_project())
     while true
