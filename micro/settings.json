@@ -1,4 +1,6 @@
 {
     colorscheme : "bensiv",
-    statusline: false
+    statusline: false,
+    tabstospaces: true,
+    tabsize: 4
 }
