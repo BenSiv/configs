@@ -1,0 +1,8 @@
+{
+    "name": "runline",
+    "author": "bensiv",
+    "description": "Run selected line in a REPL",
+    "version": "0.1.0",
+    "microVersion": "2.0.0",
+    "repository": "https://example.com/your/plugin"
+}
