@@ -11,3 +11,4 @@ fi
 
 export LUA_PATH="$HOME/lua-utils/src/?.lua;;"
 # export LUA_INIT="require('utils').using('utils')"
+export TERM=xterm-256color
