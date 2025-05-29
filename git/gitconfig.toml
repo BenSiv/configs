@@ -7,3 +7,5 @@
 	default = current
 [credential]
 	helper = store
+[core]
+	editor = micro
