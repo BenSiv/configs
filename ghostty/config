@@ -1,1 +1,78 @@
 theme = Adwaita Dark
+keybind=clear
+
+keybind = ctrl+shift+s>right=new_split:right
+keybind = ctrl+shift+s>left=new_split:left
+keybind = ctrl+shift+s>up=new_split:up
+keybind = ctrl+shift+s>down=new_split:down
+
+keybind = ctrl+shift+f>right=goto_split:right
+keybind = ctrl+shift+f>left=goto_split:left
+keybind = ctrl+shift+f>up=goto_split:up
+keybind = ctrl+shift+f>down=goto_split:down
+
+keybind = ctrl+shift+d>right=resize_split:right,10
+keybind = ctrl+shift+d>left=resize_split:left,10
+keybind = ctrl+shift+d>up=resize_split:up,10
+keybind = ctrl+shift+d>down=resize_split:down,10
+
+keybind = ctrl+shift+comma=reload_config
+keybind = ctrl+enter=toggle_fullscreen
+keybind = ctrl+shift+enter=toggle_split_zoom
+keybind = ctrl+shift+q=quit
+keybind = ctrl+0=reset_font_size
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+equal=increase_font_size:1
+
+# keybind = super+ctrl+shift+plus=equalize_splits
+# keybind = super+ctrl+shift+up=resize_split:up,10
+# keybind = super+ctrl+shift+down=resize_split:down,10
+# keybind = super+ctrl+shift+right=resize_split:right,10
+# keybind = super+ctrl+shift+left=resize_split:left,10
+# keybind = ctrl+alt+shift+j=write_screen_file:open
+# keybind = super+ctrl+left_bracket=goto_split:previous
+# keybind = super+ctrl+right_bracket=goto_split:next
+# keybind = ctrl+alt+up=goto_split:up
+# keybind = ctrl+alt+down=goto_split:down
+# keybind = ctrl+alt+right=goto_split:right
+# keybind = ctrl+alt+left=goto_split:left
+# keybind = ctrl+shift+a=select_all
+# keybind = ctrl+shift+c=copy_to_clipboard
+# keybind = ctrl+shift+e=new_split:down
+# keybind = ctrl+shift+i=inspector:toggle
+# keybind = ctrl+shift+j=write_screen_file:paste
+# keybind = ctrl+shift+n=new_window
+# keybind = ctrl+shift+o=new_split:right
+# keybind = ctrl+shift+t=new_tab
+# keybind = ctrl+shift+v=paste_from_clipboard
+# keybind = ctrl+shift+w=close_tab
+# keybind = ctrl+shift+right=next_tab
+# keybind = ctrl+shift+left=previous_tab
+# keybind = ctrl+shift+page_up=jump_to_prompt:-1
+# keybind = ctrl+shift+page_down=jump_to_prompt:1
+# keybind = ctrl+shift+tab=previous_tab
+# keybind = alt+1=goto_tab:1
+# keybind = alt+2=goto_tab:2
+# keybind = alt+3=goto_tab:3
+# keybind = alt+4=goto_tab:4
+# keybind = alt+5=goto_tab:5
+# keybind = alt+6=goto_tab:6
+# keybind = alt+7=goto_tab:7
+# keybind = alt+8=goto_tab:8
+# keybind = alt+9=last_tab
+# keybind = alt+f4=close_window
+# keybind = ctrl+comma=open_config
+# keybind = ctrl+insert=copy_to_clipboard
+# keybind = ctrl+page_up=previous_tab
+# keybind = ctrl+page_down=next_tab
+# keybind = ctrl+tab=next_tab
+# keybind = shift+up=adjust_selection:up
+# keybind = shift+down=adjust_selection:down
+# keybind = shift+right=adjust_selection:right
+# keybind = shift+left=adjust_selection:left
+# keybind = shift+home=scroll_to_top
+# keybind = shift+end=scroll_to_bottom
+# keybind = shift+insert=paste_from_selection
+# keybind = shift+page_up=scroll_page_up
+# keybind = shift+page_down=scroll_page_down
