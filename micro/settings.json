@@ -2,5 +2,6 @@
     colorscheme : "bensiv",
     statusline: false,
     tabstospaces: true,
-    tabsize: 4
+    tabsize: 4,
+    clipboard: "external"
 }
