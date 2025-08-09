@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Append the commands to ~/.bashrc
-cat /root/configs/bashrc.sh >> ~/.bashrc
-cp /root/configs/bash_aliases.sh >> ~/.bash_aliases
-source ~/.bashrc
+cat /root/configs/bash/bashrc.sh >> /root/.bashrc
+cp /root/configs/bash/bash_aliases.sh /root/.bash_aliases
+source /root/.bashrc
 
 bash /root/lua-utils/install_requirements.sh
 
