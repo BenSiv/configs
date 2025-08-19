@@ -1,82 +1,87 @@
 {
-  // ───── Window ─────
-  "window.title": " ",
-  "window.restoreWindows": "none",
-  "window.zoomLevel": 0.8,
-  "window.menuBarVisibility": "compact",
-  "window.commandCenter": false,
+    // ───── Window ─────
+    "window.title": " ",
+    "window.restoreWindows": "none",
+    "window.zoomLevel": 0.8,
+    "window.menuBarVisibility": "compact",
+    "window.commandCenter": false,
 
-  // ───── Workbench ─────
-  "workbench.startupEditor": "none",
-  "workbench.layoutControl.enabled": false,
-  "workbench.activityBar.visible": false,
-  "workbench.activityBar.location": "hidden",
-  "workbench.statusBar.visible": false,
-  "workbench.sideBar.location": "left",
-  "workbench.view.defaultViewMode": "preserve",
-  "workbench.editorAssociations": {
-    "*.xlsx": "default"
-  },
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#3f0e8d",
-    "statusBar.noFolderBackground": "#303030",
-    "statusBar.debuggingBackground": "#511f1f"
-  },
+    // ───── Workbench ─────
+    "workbench.startupEditor": "none",
+    "workbench.layoutControl.enabled": false,
+    "workbench.activityBar.location": "hidden",
+    "workbench.statusBar.visible": true,
+    "workbench.sideBar.visible": false,
+    // "workbench.sideBar.location": "left",
+    "workbench.view.defaultViewMode": "preserve",
+    "workbench.editorAssociations": {
+        "*.xlsx": "default"
+    },
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#3f0e8d",
+        "statusBar.noFolderBackground": "#303030",
+        "statusBar.debuggingBackground": "#511f1f"
+    },
 
-  // ───── Editor ─────
-  "editor.minimap.enabled": false,
-  "editor.renderWhitespace": "none",
-  "editor.renderControlCharacters": false,
-  "editor.hideCursorInOverviewRuler": true,
-  "editor.overviewRulerBorder": false,
-  "editor.stickyScroll.enabled": false,
-  "editor.stickyScroll.scrollWithEditor": false,
-  "editor.scrollbar.vertical": "hidden",
-  "editor.scrollbar.horizontal": "hidden",
-  "editor.cursorBlinking": "solid",
-  "breadcrumbs.enabled": false,
+    // ───── Editor ─────
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "none",
+    "editor.renderControlCharacters": false,
+    "editor.rulers": [],
+    "editor.hideCursorInOverviewRuler": true,
+    "editor.overviewRulerBorder": false,
+    "editor.stickyScroll.enabled": false,
+    "editor.stickyScroll.scrollWithEditor": false,
+    "editor.scrollbar.vertical": "hidden",
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.cursorBlinking": "solid",
+    "breadcrumbs.enabled": false,
 
-  // ───── Terminal ─────
-  "terminal.integrated.copyOnSelection": true,
-  "terminal.integrated.defaultProfile.linux": "bash",
-  "terminal.integrated.automationProfile.linux": {},
-  "terminal.integrated.shellIntegration.decorationsEnabled": "never",
-  "terminal.integrated.rightClickBehavior": "default",
-  "terminal.integrated.commandsToSkipShell": [
-    "language-julia.interrupt"
-  ],
-  "terminal.integrated.tabs.location": "left",
+    // ───── Files ─────
+    "files.associations": {
+        "*.bats": "shellscript"
+    },
 
-  // ───── Notebook ─────
-  "notebook.globalToolbar": false,
-  "notebook.consolidatedOutputButton": false,
+    // ───── Terminal ─────
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.defaultProfile.linux": "bash",
+    // "terminal.integrated.automationProfile.linux": {},
+    "terminal.integrated.shellIntegration.decorationsEnabled": "never",
+    "terminal.integrated.rightClickBehavior": "default",
+    "terminal.integrated.commandsToSkipShell": [
+        "language-julia.interrupt"
+    ],
 
-  // ───── Language Specific ─────
+    // ───── Notebook ─────
+    "notebook.globalToolbar": false,
+    "notebook.consolidatedOutputButton": false,
 
-  // Python
-  "python.linting.enabled": false,
-  "python.terminal.activateEnvironment": false,
+    // ───── Language Specific ─────
 
-  // Julia
-  "julia.symbolCacheDownload": true,
-  "julia.NumThreads": "auto",
-  "julia.enableTelemetry": true,
-  "julia.execution.codeInREPL": true,
-  "julia.execution.resultType": "REPL",
+    // Python
+    "python.linting.enabled": false,
+    "python.terminal.activateEnvironment": false,
 
-  // Chat
-  "chat.commandCenter.enabled": false,
+    // Julia
+    "julia.symbolCacheDownload": true,
+    "julia.NumThreads": "auto",
+    "julia.enableTelemetry": true,
+    "julia.execution.codeInREPL": true,
+    "julia.execution.resultType": "REPL",
 
-  // Dev Containers / Podman
-  "dev.containers.dockerCredentialHelper": false,
-  "dev.containers.dockerPath": "podman",
-  "dev.containers.dockerComposePath": "podman",
-  "dev.containers.dockerSocketPath": "/usr/lib/systemd/user/podman.socket",
-  "remoteEnv": {
-    "PODMAN_USERNS": "keep-id"
-  },
-  "containerUser": "vscode",
+    // Chat
+    "chat.commandCenter.enabled": false,
 
-  // ───── Security ─────
-  "security.workspace.trust.untrustedFiles": "open"
+    // Dev Containers / Podman
+    "dev.containers.dockerPath": "podman",
+    "dev.containers.dockerComposePath": "podman",
+    "dev.containers.dockerSocketPath": "/usr/lib/systemd/user/podman.socket",
+    "remoteEnv": {
+        "PODMAN_USERNS": "keep-id"
+    },
+    "containerUser": "vscode",
+
+    // ───── Security ─────
+    "security.workspace.trust.untrustedFiles": "open",
+    "terminal.integrated.tabs.location": "left"
 }

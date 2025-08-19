@@ -3,5 +3,8 @@
     statusline: false,
     tabstospaces: true,
     tabsize: 4,
-    clipboard: "external"
+    clipboard: "external",
+    filetype: {
+        bats: "sh"
+    }
 }
