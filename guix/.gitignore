@@ -1,0 +1,15 @@
+# Generated Scheme files
+*.scm
+!guix.scm
+!guix.scm
+!channels.scm
+!wisp_converter.guile
+
+# Build artifacts
+*.iso
+*.img
+install-image.iso
+
+# Temporary files
+*.go
+*~

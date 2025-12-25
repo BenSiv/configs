@@ -1,0 +1,98 @@
+use-modules
+  gnu
+  gnu system
+  gnu tests
+  gnu services
+  gnu services desktop
+  gnu services networking
+  gnu services cups
+  gnu packages
+  gnu packages base
+  gnu packages nss
+  gnu packages gnome
+  gnu packages version-control
+  gnu packages web
+  gnu packages wget
+  gnu packages curl
+  gnu packages admin
+  gnu packages lua
+  gnu packages commencement
+  gnu packages readline
+  gnu packages text-editors
+  gnu packages compression
+  gnu packages sqlite
+  nongnu packages linux
+  nongnu packages firmware
+  srfi srfi-1
+
+use-service-modules
+  . desktop
+  . networking
+  . avahi
+  . dbus
+  . cups
+
+operating-system
+  host-name "guix-machine"
+  timezone "Etc/UTC"
+  locale "en_US.utf8"
+
+  kernel linux
+  firmware
+    list linux-firmware
+
+  keyboard-layout
+    keyboard-layout "us"
+
+  bootloader
+    bootloader-configuration
+      bootloader grub-efi-bootloader
+      targets '("/boot/efi")
+
+  file-systems
+    cons*
+      file-system
+        mount-point "/"
+        device
+          uuid "9dc2c427-7d7c-41b2-81f1-4b35c4467eed"
+        type "ext4"
+      file-system
+        mount-point "/boot/efi"
+        device
+          uuid "8d4c7f65-5f15-4769-abad-7eb57d332b5b"
+        type "vfat"
+      . %base-file-systems
+
+  users
+    cons
+      user-account
+        name "bensiv"
+        group "users"
+        supplementary-groups
+          list "wheel" "netdev" "audio" "video"
+        home-directory "/home/bensiv"
+      . %base-user-accounts
+
+  packages
+    append
+      list
+        . gnome
+        . nano
+        . git
+        . curl
+        . wget
+        . unzip
+        . tree
+        . sqlite
+        . lua-5.1
+        . gcc-toolchain
+        . gnu-make
+        . readline
+      . %base-packages
+
+  services
+    append
+      list
+        service gnome-desktop-service-type
+        service cups-service-type
+      . %desktop-services
