@@ -4,6 +4,15 @@ set -e
 echo "Building Bootable ISO..."
 echo "This may take a while as it downloads/builds the system..."
 
+# Use /var/tmp for larger temporary space (avoids /tmp filling up during kernel compile)
+export TMPDIR=/var/tmp
+
+echo "---------------------------------------------------"
+echo "NOTE: If this process takes a long time (compiling linux/vmlinux),"
+echo "      it means proper substitutes are missing or not authorized."
+echo "      Ensure you ran: wget -qO- https://substitutes.nonguix.org/signing-key.pub | sudo guix archive --authorize"
+echo "---------------------------------------------------"
+
 # Check for dependencies
 if ! command -v guile &> /dev/null; then
     echo "Guile not found. Rerunning in 'guix shell guile guile-wisp'..."
