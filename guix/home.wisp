@@ -69,14 +69,25 @@ define-public home-config
                         system* "git" "clone" url target
                   repos
 
-        ;; Load Gnome Settings (dconf)
-        simple-service 'dconf-load
-          home-activation-service-type
-          #~ begin
-               let ((dconf-file (string-append (getenv "HOME") "/Documents/configs/gnome/settings.dconf")))
-                 when (file-exists? dconf-file)
-                   format #t "Loading dconf settings...~%"
-                   system* "sh" "-c" (string-append "dconf load / < " dconf-file)
+        ;; GNOME Settings (Declarative)
+        service home-dconf-service-type
+          home-dconf-configuration
+            settings
+              `(("org/gnome/desktop/interface"
+                 ((color-scheme . "prefer-dark")
+                  (clock-format . "24h")
+                  (clock-show-date . #t)
+                  (show-battery-percentage . #t)))
+
+                ("org/gnome/mutter"
+                 ((dynamic-workspaces . #t)))
+
+                ("org/gnome/shell"
+                 ((favorite-apps . '())))
+
+                ("org/gnome/desktop/background"
+                 ((picture-uri . "file:///run/current-system/profile/share/backgrounds/gnome/blobs-l.svg")
+                  (picture-uri-dark . "file:///run/current-system/profile/share/backgrounds/gnome/blobs-d.svg"))))
 
         ;; Zen Browser Information
         simple-service 'zen-browser-info
