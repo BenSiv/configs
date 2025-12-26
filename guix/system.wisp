@@ -21,6 +21,7 @@ use-modules
   gnu packages text-editors
   gnu packages compression
   gnu packages sqlite
+  gnu packages password-utils
   nongnu packages linux
   nongnu packages firmware
   srfi srfi-1
@@ -67,6 +68,7 @@ operating-system
     cons
       user-account
         name "bensiv"
+        password "$6$5WOfFv1MJ7fer/vu$/jiZpcR.lEV9fsSdxm0H0Dtda/yWfrR87q.j1QRvP6r8b/A4nOFTG7zP4P038c9R1rlgJD6/aRafvOVADU.pn1"
         group "users"
         supplementary-groups
           list "wheel" "netdev" "audio" "video"
@@ -88,6 +90,7 @@ operating-system
         . gcc-toolchain
         . gnu-make
         . readline
+        . password-store
       . %base-packages
 
   services
