@@ -37,7 +37,7 @@ operating-system
   timezone "Etc/UTC"
   locale "en_US.utf8"
 
-  kernel linux
+  kernel linux-lts
   firmware
     list linux-firmware
 
