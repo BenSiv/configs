@@ -55,12 +55,12 @@ operating-system
       file-system
         mount-point "/"
         device
-          uuid "9dc2c427-7d7c-41b2-81f1-4b35c4467eed"
+          uuid "bd4918c3-0360-4f14-b075-7f5ff95a686c"
         type "ext4"
       file-system
         mount-point "/boot/efi"
         device
-          uuid "8d4c7f65-5f15-4769-abad-7eb57d332b5b"
+          uuid "8A1B-0591"
         type "vfat"
       . %base-file-systems
 
