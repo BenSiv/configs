@@ -60,7 +60,7 @@ operating-system
       file-system
         mount-point "/boot/efi"
         device
-          uuid "8A1B-0591"
+          uuid "8A1B-0591" 'fat
         type "vfat"
       . %base-file-systems
 
