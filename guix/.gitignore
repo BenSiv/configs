@@ -1,7 +1,9 @@
 # Generated Scheme files
-*.scm
-!guix.scm
-!guix.scm
+# Generated Scheme files (Now Source)
+# *.scm is no longer ignored
+!system.scm
+!home.scm
+!iso_config.scm
 !channels.scm
 !wisp_converter.guile
 

@@ -35,13 +35,17 @@ echo "Using config: /etc/guix-install/system.scm"
 echo "This may take a while..."
 
 # Embed home.scm for the user
+# Config path in the installed package
+CONFIG_DIR="/run/current-system/profile/share/guix-install"
+
+# Embed home.scm for the user
 mkdir -p /mnt/home/bensiv/Documents/configs/guix
-cp /etc/guix-install/home.scm /mnt/home/bensiv/Documents/configs/guix/home.scm
-cp /etc/guix-install/channels.scm /mnt/home/bensiv/Documents/configs/guix/channels.scm
+cp "$CONFIG_DIR/home.scm" /mnt/home/bensiv/Documents/configs/guix/home.scm
+cp "$CONFIG_DIR/channels.scm" /mnt/home/bensiv/Documents/configs/guix/channels.scm
 
 # Use time-machine to ensure channels (nonguix) are loaded
 echo "Running installation with proper channels..."
-guix time-machine -C /etc/guix-install/channels.scm -- system init /etc/guix-install/system.scm /mnt
+guix time-machine -C "$CONFIG_DIR/channels.scm" -- system init "$CONFIG_DIR/system.scm" /mnt
 
 echo -e "\n${GREEN}==============================================${NC}"
 echo -e "${GREEN}   Installation Complete!                     ${NC}"

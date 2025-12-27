@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Generate updated channels if needed (optional)
+# guix describe --format=channels > channels.scm
+
 echo "Building Bootable ISO..."
 echo "This may take a while as it downloads/builds the system..."
 
@@ -12,15 +15,6 @@ echo "NOTE: If this process takes a long time (compiling linux/vmlinux),"
 echo "      it means proper substitutes are missing or not authorized."
 echo "      Ensure you ran: wget -qO- https://substitutes.nonguix.org/signing-key.pub | sudo guix archive --authorize"
 echo "---------------------------------------------------"
-
-# Check for dependencies
-if ! command -v guile &> /dev/null; then
-    echo "Guile not found. Rerunning in 'guix shell guile guile-wisp'..."
-    exec guix shell guile guile-wisp guix -- bash "$0" "$@"
-fi
-
-# Make sure channels.scm and system.scm exist, and generate iso_config.scm
-make channels.scm system.scm iso_config.scm
 
 # Build the image and create a symlink to it
 # We use --root to create a persistent GC root (symlink) named 'install-image.iso'
