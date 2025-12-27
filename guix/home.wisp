@@ -73,22 +73,27 @@ define-public home-config
         service home-dconf-service-type
           home-dconf-configuration
             settings
-              `(("org/gnome/desktop/interface"
-                 ((color-scheme . "prefer-dark")
-                  (accent-color . "orange")
-                  (clock-format . "24h")
-                  (clock-show-date . #t)
-                  (show-battery-percentage . #t)))
+              list
+                list "org/gnome/desktop/interface"
+                  list
+                    cons 'color-scheme "prefer-dark"
+                    cons 'accent-color "orange"
+                    cons 'clock-format "24h"
+                    cons 'clock-show-date #t
+                    cons 'show-battery-percentage #t
 
-                ("org/gnome/mutter"
-                 ((dynamic-workspaces . #t)))
+                list "org/gnome/mutter"
+                  list
+                    cons 'dynamic-workspaces #t
 
-                ("org/gnome/shell"
-                 ((favorite-apps . '())))
+                list "org/gnome/shell"
+                  list
+                    cons 'favorite-apps '()
 
-                ("org/gnome/desktop/background"
-                 ((picture-uri . "file:///run/current-system/profile/share/backgrounds/gnome/blobs-l.svg")
-                  (picture-uri-dark . "file:///run/current-system/profile/share/backgrounds/gnome/blobs-d.svg"))))
+                list "org/gnome/desktop/background"
+                  list
+                    cons 'picture-uri "file:///run/current-system/profile/share/backgrounds/gnome/blobs-l.svg"
+                    cons 'picture-uri-dark "file:///run/current-system/profile/share/backgrounds/gnome/blobs-d.svg"
 
         ;; Zen Browser Information
         simple-service 'zen-browser-info
