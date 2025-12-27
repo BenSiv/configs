@@ -98,4 +98,21 @@ operating-system
       list
         service gnome-desktop-service-type
         service cups-service-type
+        ;; Embed Installer Files
+        extra-special-file "/etc/guix-install/system.scm"
+                           local-file "system.scm"
+        extra-special-file "/etc/guix-install/home.scm"
+                           local-file "home.scm"
+        extra-special-file "/etc/guix-install/channels.scm"
+                           local-file "channels.scm"
+        extra-special-file "/etc/guix-install/install.sh"
+                           local-file "install.sh" #:recursive? #t
+
+        ;; Installer Alias (Global)
+        extra-special-file "/etc/profile.d/install-alias.sh"
+                           plain-file "install-alias.sh" "alias install-system='sudo bash /etc/guix-install/install.sh'"
+
+        ;; Message of the Day
+        extra-special-file "/etc/motd"
+                           plain-file "motd" "\n\n   Welcome to Guix System Installer!   \n   Run 'install-system' to install.    \n\n"
       . %desktop-services

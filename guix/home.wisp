@@ -75,6 +75,7 @@ define-public home-config
             settings
               `(("org/gnome/desktop/interface"
                  ((color-scheme . "prefer-dark")
+                  (accent-color . "orange")
                   (clock-format . "24h")
                   (clock-show-date . #t)
                   (show-battery-percentage . #t)))

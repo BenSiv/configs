@@ -24,6 +24,7 @@ make channels.scm system.scm
 
 # Build the image and create a symlink to it
 # We use --root to create a persistent GC root (symlink) named 'install-image.iso'
+rm -f install-image.iso
 guix time-machine -C channels.scm -- system image --image-type=iso9660 --root=install-image.iso system.scm
 
 echo "---------------------------------------------------"
