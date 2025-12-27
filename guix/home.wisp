@@ -56,9 +56,11 @@ define-public home-config
           home-activation-service-type
           #~ begin
               let ((home (getenv "HOME"))
-                   (repos '(("https://github.com/BenSiv/brain-ex.git" . "brain-ex")
-                            ("https://github.com/BenSiv/lua-utils.git" . "lua-utils")
-                            ("https://github.com/BenSiv/luam.git" . "luam"))))
+               (repos
+                 list
+                   cons "https://github.com/BenSiv/brain-ex.git" "brain-ex"
+                   cons "https://github.com/BenSiv/lua-utils.git" "lua-utils"
+                   cons "https://github.com/BenSiv/luam.git" "luam"))
                 for-each
                   lambda (repo)
                     let ((url (car repo))

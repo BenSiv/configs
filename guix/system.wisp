@@ -48,7 +48,7 @@ operating-system
   bootloader
     bootloader-configuration
       bootloader grub-efi-bootloader
-      targets '("/boot/efi")
+      targets : list "/boot/efi"
 
   file-systems
     cons*
