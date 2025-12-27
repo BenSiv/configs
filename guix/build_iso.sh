@@ -19,13 +19,13 @@ if ! command -v guile &> /dev/null; then
     exec guix shell guile guile-wisp guix -- bash "$0" "$@"
 fi
 
-# Make sure channels.scm and system.scm exist
-make channels.scm system.scm
+# Make sure channels.scm and system.scm exist, and generate iso_config.scm
+make channels.scm system.scm iso_config.scm
 
 # Build the image and create a symlink to it
 # We use --root to create a persistent GC root (symlink) named 'install-image.iso'
 rm -f install-image.iso
-guix time-machine -C channels.scm -- system image --image-type=iso9660 --root=install-image.iso system.scm
+guix time-machine -C channels.scm -- system image --image-type=iso9660 --root=install-image.iso iso_config.scm
 
 echo "---------------------------------------------------"
 echo "ISO created at: ./install-image.iso"

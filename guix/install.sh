@@ -37,6 +37,7 @@ echo "This may take a while..."
 # Embed home.scm for the user
 mkdir -p /mnt/home/bensiv/Documents/configs/guix
 cp /etc/guix-install/home.scm /mnt/home/bensiv/Documents/configs/guix/home.scm
+cp /etc/guix-install/channels.scm /mnt/home/bensiv/Documents/configs/guix/channels.scm
 
 # Use time-machine to ensure channels (nonguix) are loaded
 echo "Running installation with proper channels..."
