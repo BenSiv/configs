@@ -44,29 +44,35 @@ define-public home-config
         simple-service 'link-config-dirs
           home-activation-service-type
           #~ begin
-              use-modules (guix build utils)
-              let ((config-dir (string-append (getenv "HOME") "/.config"))
-                   (micro-src (string-append (getenv "HOME") "/Documents/configs/micro")))
+              use-modules : guix build utils
+              let
+                :
+                  config-dir : string-append (getenv "HOME") "/.config"
+                  micro-src : string-append (getenv "HOME") "/Documents/configs/micro"
                 mkdir-p config-dir
-                unless (file-exists? (string-append config-dir "/micro"))
-                  symlink micro-src (string-append config-dir "/micro")
+                unless : file-exists? (string-append config-dir "/micro")
+                  symlink micro-src : string-append config-dir "/micro"
 
         ;; Clone Projects
         simple-service 'clone-repos
           home-activation-service-type
           #~ begin
-              let ((home (getenv "HOME"))
-               (repos
-                 list
-                   cons "https://github.com/BenSiv/brain-ex.git" "brain-ex"
-                   cons "https://github.com/BenSiv/lua-utils.git" "lua-utils"
-                   cons "https://github.com/BenSiv/luam.git" "luam"))
+              let
+                :
+                  home : getenv "HOME"
+                  repos
+                    list
+                      cons "https://github.com/BenSiv/brain-ex.git" "brain-ex"
+                      cons "https://github.com/BenSiv/lua-utils.git" "lua-utils"
+                      cons "https://github.com/BenSiv/luam.git" "luam"
                 for-each
                   lambda (repo)
-                    let ((url (car repo))
-                         (dir (cdr repo))
-                         (target (string-append home "/" dir)))
-                      unless (file-exists? target)
+                    let
+                      :
+                        url : car repo
+                        dir : cdr repo
+                        target : string-append home "/" dir
+                      unless : file-exists? target
                         format #t "Cloning ~a...~%" dir
                         system* "git" "clone" url target
                   repos
