@@ -49,7 +49,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bensiv = {
     isNormalUser = true;
-    description = "Ben Siv";
+    description = "Ben Sivan";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     initialPassword = "1234"; # Change this after install!
     packages = with pkgs; [];
