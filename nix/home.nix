@@ -39,6 +39,7 @@
     google-chrome
     inputs.zen-browser.packages."${pkgs.system}".default
     inputs.antigravity.packages."${pkgs.system}".default
+    pkgs.gnomeExtensions.panel-date-format
     
     # My Utils
     # (Assuming these will be fetched or built separately, but adding placeholder)
@@ -55,6 +56,7 @@
     
     "org/gnome/shell" = {
       favorite-apps = [];
+      enabled-extensions = [ "panel-date-format@atareao.es" ];
     };
 
     "org/gnome/mutter" = {
@@ -76,14 +78,16 @@
     
     # Custom Background
     "org/gnome/desktop/background" = {
-      picture-uri = "file:///home/bensiv/Pictures/cosy cabin.png";
-      picture-uri-dark = "file:///home/bensiv/Pictures/cosy cabin.png";
+      picture-uri = "file:///home/bensiv/Pictures/cosy%20cabin.png";
+      picture-uri-dark = "file:///home/bensiv/Pictures/cosy%20cabin.png";
     };
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
+    "Pictures/cosy cabin.png".source = ./iso/assets/cosy_cabin.png;
+    
     ".bash_aliases".text = ''
       # User Aliases
       alias readdir="ls --format=single-column --almost-all --group-directories-first --color=auto"
@@ -182,13 +186,18 @@
     
     # USER: Add your repository URLs here. Example:
     # REPOS=("https://github.com/myuser/myrepo.git")
-    REPOS=()
+    REPOS=(
+      "https://github.com/BenSiv/configs.git"
+      "https://github.com/BenSiv/lua-utils.git"
+      "https://github.com/BenSiv/lua-automations.git"
+      "https://github.com/BenSiv/brain-ex.git"
+    )
     
     for repo in "''${REPOS[@]}"; do
         name=$(basename "$repo" .git)
         if [ ! -d "$HOME/Projects/$name" ]; then
             echo "Cloning $name..."
-            ${pkgs.git}/bin/git clone "$repo" "$HOME/Projects/$name"
+            ${pkgs.git}/bin/git clone --recurse-submodules "$repo" "$HOME/Projects/$name"
         else
             echo "$name already exists, skipping."
         fi
