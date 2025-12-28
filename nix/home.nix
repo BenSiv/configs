@@ -39,7 +39,6 @@
     google-chrome
     inputs.zen-browser.packages."${pkgs.system}".default
     inputs.antigravity.packages."${pkgs.system}".default
-    pkgs.gnomeExtensions.panel-date-format
     
     # My Utils
     # (Assuming these will be fetched or built separately, but adding placeholder)
@@ -50,16 +49,17 @@
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       accent-color = "orange";
-      clock-show-weekday = true;
+      clock-show-weekday = false;
+      clock-format = "24h";
     };
     
     "org/gnome/shell" = {
       favorite-apps = [];
-      enabled-extensions = [ "panel-date-format@atareao.es" ];
     };
 
     "org/gnome/mutter" = {
       dynamic-workspaces = false;
+      experimental-features = ["scale-monitor-framebuffer"];
     };
 
     "org/gnome/desktop/wm/preferences" = {
@@ -71,22 +71,32 @@
       toggle-fullscreen = ["<Control>Return"];
     };
 
-    # ISO Clock Format
-    "org/gnome/shell/extensions/panel-date-format" = {
-      format = "%Y-%m-%d %H:%M:%S";
-    };
+    # Clock Format - use native GNOME format
+    "org/gnome/desktop/interface".clock-show-date = true;
     
-    # Default Background (Adwaita Dark)
+    # Custom Background
     "org/gnome/desktop/background" = {
-      picture-uri = "file://${pkgs.gnome-backgrounds}/share/backgrounds/gnome/adwaita-l.jpg";
-      picture-uri-dark = "file://${pkgs.gnome-backgrounds}/share/backgrounds/gnome/adwaita-d.jpg";
+      picture-uri = "file:///home/bensiv/Pictures/cosy cabin.png";
+      picture-uri-dark = "file:///home/bensiv/Pictures/cosy cabin.png";
     };
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    # ".screenrc".source = dotfiles/screenrc;
+    ".bash_aliases".text = ''
+      # User Aliases
+      alias readdir="ls --format=single-column --almost-all --group-directories-first --color=auto"
+      alias rd="lua $HOME/lua-automations/readdir.lua"
+      alias edit="lua $HOME/lua-automations/edit.lua"
+      alias find="lua $HOME/lua-automations/find.lua"
+      alias repo="lua $HOME/lua-automations/repo.lua"
+      alias sqlite="sqlite3"
+      alias python="python3"
+      alias brex="$HOME/brain-ex/brex"
+      alias ted="gnome-text-editor"
+      alias mde="podman exec -it min-dev-env bash"
+    '';
   };
 
   # You can also manage environment variables but you will have to manually
@@ -147,18 +157,6 @@
       ll = "ls -l";
       lsa = "ls -la";
       ".." = "cd ..";
-      
-      # User Aliases
-      readdir = "ls --format=single-column --almost-all --group-directories-first --color=auto";
-      rd = "lua $HOME/lua-automations/readdir.lua";
-      edit = "lua $HOME/lua-automations/edit.lua";
-      find = "lua $HOME/lua-automations/find.lua";
-      repo = "lua $HOME/lua-automations/repo.lua";
-      sqlite = "sqlite3";
-      python = "python3";
-      brex = "$HOME/brain-ex/brex";
-      ted = "gnome-text-editor";
-      mde = "podman exec -it min-dev-env bash";
     };
     initExtra = ''
       export PS1='\[\033[32m\]\h\[\033[0m\] | \[\033[34m\]\w\[\033[0m\] > '

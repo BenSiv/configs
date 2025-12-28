@@ -43,6 +43,28 @@
           {
             nixpkgs.config.allowUnfree = true;
             
+            # Remove unwanted default GNOME apps
+            environment.gnome.excludePackages = with nixpkgs.legacyPackages.x86_64-linux; [
+              epiphany
+              totem
+              evince
+              geary
+              gnome-contacts
+              gnome-music
+              gnome-maps
+              gnome-weather
+              gnome-photos
+              gnome-characters
+              gnome-font-viewer
+              gnome-connections
+              simple-scan
+              yelp
+              gnome-tour
+            ];
+            
+            # Add gnome-tweaks
+            environment.systemPackages = [ nixpkgs.legacyPackages.x86_64-linux.gnome-tweaks ];
+            
             # User setup
             users.users.bensiv = {
               isNormalUser = true;
