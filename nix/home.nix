@@ -26,6 +26,7 @@
     ripgrep
     fd
     jq
+    
     tree
     
     # Dev Tools
@@ -59,6 +60,10 @@
       enabled-extensions = [ "panel-date-format@atareao.es" ];
     };
 
+    "org/gnome/shell/extensions/panel-date-format" = {
+      format = "%Y-%m-%d";
+    };
+
     "org/gnome/mutter" = {
       dynamic-workspaces = false;
       experimental-features = ["scale-monitor-framebuffer"];
@@ -78,15 +83,15 @@
     
     # Custom Background
     "org/gnome/desktop/background" = {
-      picture-uri = "file:///home/bensiv/Pictures/cosy%20cabin.png";
-      picture-uri-dark = "file:///home/bensiv/Pictures/cosy%20cabin.png";
+      picture-uri = "file:///home/bensiv/Pictures/cosy_cabin.png";
+      picture-uri-dark = "file:///home/bensiv/Pictures/cosy_cabin.png";
     };
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    "Pictures/cosy cabin.png".source = ./iso/assets/cosy_cabin.png;
+    "Pictures/cosy_cabin.png".source = ./iso/assets/cosy_cabin.png;
     
     ".bash_aliases".text = ''
       # User Aliases

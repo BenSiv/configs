@@ -38,8 +38,10 @@ mkdir -p "$TARGET_DIR"
 # Copy our managed configs
 echo "Copying config files..."
 cp flake.nix "$TARGET_DIR/"
+cp flake.lock "$TARGET_DIR/"
 cp configuration.nix "$TARGET_DIR/"
 cp home.nix "$TARGET_DIR/"
+cp -r iso "$TARGET_DIR/"
 
 # Copy the generated hardware config
 echo "Copying generated hardware-configuration.nix..."
