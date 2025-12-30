@@ -1,0 +1,93 @@
+---
+- name: Install GNOME Tools
+  apt:
+    name:
+      - gnome-tweaks
+      - dconf-cli
+    state: present
+
+- name: Remove Bloatware
+  apt:
+    name:
+      - aisleriot
+      - gnome-mahjongg
+      - gnome-mines
+      - gnome-sudoku
+      - libreoffice-core
+      - libreoffice-common
+      - libreoffice-calc
+      - libreoffice-draw
+      - libreoffice-gnome
+      - libreoffice-gtk3
+      - libreoffice-impress
+      - libreoffice-math
+      - libreoffice-writer
+      - rhythmbox
+      - shotwell
+      - thunderbird
+      - transmission-common
+      - transmission-gtk
+      - remmina
+    state: absent
+    purge: yes
+
+- name: Create Pictures directory
+  file:
+    path: "{{ ansible_env.HOME }}/Pictures"
+    state: directory
+
+- name: Copy Wallpaper
+  copy:
+    src: "/home/bensiv/Documents/configs/nix/iso/assets/cosy_cabin.png"
+    dest: "{{ ansible_env.HOME }}/Pictures/cosy_cabin.png"
+    force: no
+    # Note: Assuming the source path relative to where we run this, or absolute.
+    # Since we are essentially porting, I'll use the path from the current workspace if possible,
+    # or fail gracefully. For now using the absolute path found in user context.
+  ignore_errors: yes
+
+- name: Set Dark Mode
+  dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+
+- name: Set Accent Color
+  dconf:
+    key: "/org/gnome/desktop/interface/accent-color"
+    value: "'orange'"
+
+- name: Set Wallpaper
+  dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "'file:///home/bensiv/Pictures/cosy_cabin.png'"
+
+- name: Set Wallpaper (Dark)
+  dconf:
+    key: "/org/gnome/desktop/background/picture-uri-dark"
+    value: "'file:///home/bensiv/Pictures/cosy_cabin.png'"
+
+- name: Disable Dynamic Workspaces
+  dconf:
+    key: "/org/gnome/mutter/dynamic-workspaces"
+    value: "false"
+
+- name: Set Number of Workspaces to 1
+  dconf:
+    key: "/org/gnome/desktop/wm/preferences/num-workspaces"
+    value: "1"
+
+- name: Show Date in Clock
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-show-date"
+    value: "true"
+
+- name: Set 24h Clock
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-format"
+    value: "'24h'"
+
+- name: Disable Fullscreen Keybinding Conflict
+  dconf:
+    key: "/org/gnome/desktop/wm/keybindings/toggle-fullscreen"
+    value: "['<Control>Return']"
+

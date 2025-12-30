@@ -1,0 +1,48 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install common packages
+  apt:
+    name:
+      - curl
+      - wget
+      - git
+      - make
+      - fd-find
+      - ripgrep
+      - jq
+      - tree
+      - micro
+      - sqlite3
+      - pandoc
+      - texlive-xetex
+      - build-essential
+    state: present
+
+- name: Download Google Chrome .deb
+  get_url:
+    url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    dest: /tmp/google-chrome-stable_current_amd64.deb
+
+- name: Install Google Chrome
+  apt:
+    deb: /tmp/google-chrome-stable_current_amd64.deb
+
+- name: Create symlink for fd
+  file:
+    src: /usr/bin/fdfind
+    dest: /usr/bin/fd
+    state: link
+  ignore_errors: yes
+
+- name: Set timezone to America/Los_Angeles
+  timezone:
+    name: "America/Los_Angeles"
+
+- name: Generate en_US.UTF-8 locale
+  locale_gen:
+    name: en_US.UTF-8
+    state: present

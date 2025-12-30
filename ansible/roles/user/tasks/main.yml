@@ -1,0 +1,104 @@
+---
+- name: Configure Git Global User
+  git_config:
+    name: user.name
+    scope: global
+    value: "BenSiv"
+
+- name: Configure Git Global Email
+  git_config:
+    name: user.email
+    scope: global
+    value: "bensiv92@gmail.com"
+
+- name: Configure Git Aliases
+  git_config:
+    name: "alias.{{ item.key }}"
+    scope: global
+    value: "{{ item.value }}"
+  loop:
+    - { key: 'tree', value: "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all" }
+    - { key: 'st', value: 'status' }
+    - { key: 'co', value: 'checkout' }
+
+- name: Configure Git Extras
+  git_config:
+    name: "{{ item.key }}"
+    scope: global
+    value: "{{ item.value }}"
+  loop:
+    - { key: 'init.defaultBranch', value: 'main' }
+    - { key: 'push.default', value: 'current' }
+    - { key: 'credential.helper', value: 'store' }
+    - { key: 'core.editor', value: 'micro' }
+
+- name: Create Projects directory
+  file:
+    path: "{{ ansible_env.HOME }}/Projects"
+    state: directory
+    mode: '0755'
+
+- name: Clone Repositories
+  git:
+    repo: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/Projects/{{ item | basename | splitext | first }}"
+    recursive: yes
+    update: no # Don't overwrite changes if exists
+  loop:
+    - "https://github.com/BenSiv/configs.git"
+    - "https://github.com/BenSiv/lua-utils.git"
+    - "https://github.com/BenSiv/lua-automations.git"
+    - "https://github.com/BenSiv/brain-ex.git"
+
+- name: Create .bash_aliases
+  copy:
+    dest: "{{ ansible_env.HOME }}/.bash_aliases"
+    content: |
+      # User Aliases
+      alias readdir="ls --format=single-column --almost-all --group-directories-first --color=auto"
+      alias rd="lua $HOME/lua-automations/readdir.lua"
+      alias edit="lua $HOME/lua-automations/edit.lua"
+      alias find="lua $HOME/lua-automations/find.lua"
+      alias repo="lua $HOME/lua-automations/repo.lua"
+      alias sqlite="sqlite3"
+      alias brex="$HOME/brain-ex/brex"
+      alias ted="gnome-text-editor"
+      
+      export LUA_PATH="$HOME/lua-utils/src/?.lua;;"
+      export EDITOR="micro"
+
+- name: Ensure .bash_aliases is sourced in .bashrc
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi"
+    state: present
+
+- name: Create micro config directory
+  file:
+    path: "{{ ansible_env.HOME }}/.config/micro"
+    state: directory
+
+- name: Configure Micro settings
+  copy:
+    dest: "{{ ansible_env.HOME }}/.config/micro/settings.json"
+    content: |
+      {
+          "colorscheme": "simple",
+          "statusline": false,
+          "tabstospaces": true,
+          "tabsize": 4,
+          "clipboard": "external",
+          "filetype.bats": "sh"
+      }
+
+- name: Configure Micro bindings
+  copy:
+    dest: "{{ ansible_env.HOME }}/.config/micro/bindings.json"
+    content: |
+      {
+          "Alt-/": "lua:comment.comment",
+          "CtrlUnderscore": "lua:comment.comment",
+          "Ctrl-Space": "CommandMode",
+          "Alt-PageUp": "NextSplit",
+          "Alt-PageDown": "PreviousSplit"
+      }

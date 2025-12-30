@@ -1,0 +1,45 @@
+---
+- name: Install Development Packages
+  apt:
+      - liblua5.1-0-dev
+      # Antigravity Dependencies
+      - libsecret-1-0
+      - libnotify4
+      - libnss3
+      - libxkbcommon0
+      - libgbm1
+      - libasound2
+      - libgtk-3-0
+    state: present
+
+- name: Ensure GCC is present
+  apt:
+    name: gcc
+    state: present
+
+- name: Create Antigravity directory
+  file:
+    path: /opt/antigravity
+    state: directory
+    mode: '0755'
+
+- name: Download and Unarchive Antigravity
+  unarchive:
+    src: "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.13.3-4533425205018624/linux-x64/Antigravity.tar.gz"
+    dest: /opt/antigravity
+    remote_src: yes
+    creates: /opt/antigravity/antigravity
+
+- name: Symlink Antigravity binary
+  file:
+    src: /opt/antigravity/antigravity
+    dest: /usr/local/bin/antigravity
+    state: link
+
+- name: Create Antigravity Desktop Entry
+  template:
+    src: antigravity.desktop.j2
+    dest: /usr/share/applications/antigravity.desktop
+  vars:
+    icon_path: /opt/antigravity/resources/app/icon.png # Approx path, user verify
+

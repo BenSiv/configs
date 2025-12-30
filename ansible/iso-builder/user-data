@@ -1,0 +1,29 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: ubuntu-dev
+    password: "$6$rounds=4096$randomsalt$G8.2k5.0000000000000000000000000000000000000000000000000000000000000000000000000000000" # Change this! (Default: 1234, but hash is fake here for privacy, see below)
+    realname: Ben Sivan
+    username: bensiv
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  ssh:
+    install-server: true
+    authorized-keys: []
+    allow-pw: true
+  packages:
+    - ansible
+    - git
+  
+  late-commands:
+    # 1. Copy the embedded 'ansible' folder from the installation media (/cdrom) to the target system
+    - cp -r /cdrom/ansible /target/home/bensiv/ansible
+    
+    # 2. Fix permissions
+    - curtin in-target --target=/target -- chown -R bensiv:bensiv /home/bensiv/ansible
+    
+    # 3. Run the Ansible playbook inside the target
+    # We skip 'install.sh' installing ansible since we added it to 'packages' above
+    - curtin in-target --target=/target -- ansible-playbook /home/bensiv/ansible/site.yml

@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes  # Most tasks require sudo
+  roles:
+    - common
+    - development
+    - user
+    - gnome
