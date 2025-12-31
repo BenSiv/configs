@@ -3,7 +3,7 @@ autoinstall:
   version: 1
   identity:
     hostname: ubuntu-dev
-    password: "$6$rounds=4096$randomsalt$G8.2k5.0000000000000000000000000000000000000000000000000000000000000000000000000000000" # Change this! (Default: 1234, but hash is fake here for privacy, see below)
+    password: "$6$TVDBGla0gs520h6O$GSMqUsYIU5Lq5637TO8B1zf0qkXFJgGCHuTSWcb.O4m9D2QKI1vaRZgYlQh0STzakh/H7RF6N130zx9DrFG000" # Password: 1234
     realname: Ben Sivan
     username: bensiv
   locale: en_US.UTF-8
