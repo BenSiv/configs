@@ -1,6 +1,8 @@
 ---
 - name: Install Development Packages
   apt:
+    name:
+      - lua5.1
       - liblua5.1-0-dev
       # Antigravity Dependencies
       - libsecret-1-0
