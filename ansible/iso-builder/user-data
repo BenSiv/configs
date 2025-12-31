@@ -18,12 +18,19 @@ autoinstall:
     - git
   
   late-commands:
-    # 1. Copy the embedded 'ansible' folder from the installation media (/cdrom) to the target system
-    - cp -r /cdrom/ansible /target/home/bensiv/ansible
+    # 1. Mount the CIDATA partition to access Ansible files
+    # We use explicit mount because cloud-init might have unmounted it or we need 'ansible' folder specifically
+    - mkdir -p /mnt/cidata
+    - mount -L CIDATA /mnt/cidata
     
-    # 2. Fix permissions
+    # 2. Copy the 'ansible' folder to the target system
+    - cp -r /mnt/cidata/ansible /target/home/bensiv/ansible
+    
+    # 3. Fix permissions
     - curtin in-target --target=/target -- chown -R bensiv:bensiv /home/bensiv/ansible
     
-    # 3. Run the Ansible playbook inside the target
-    # We skip 'install.sh' installing ansible since we added it to 'packages' above
+    # 4. Run the Ansible playbook inside the target
     - curtin in-target --target=/target -- ansible-playbook /home/bensiv/ansible/site.yml
+
+    # 5. Cleanup
+    - umount /mnt/cidata
