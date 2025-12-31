@@ -2,6 +2,7 @@
 - name: Install GNOME Tools
   apt:
     name:
+      - ubuntu-desktop-minimal
       - gnome-tweaks
       - dconf-cli
     state: present
