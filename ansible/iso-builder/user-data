@@ -14,8 +14,8 @@ autoinstall:
     authorized-keys: []
     allow-pw: true
   packages:
-    - ansible
     - git
+
   
   late-commands:
     # 1. Mount the CIDATA partition to access Ansible files
@@ -29,8 +29,12 @@ autoinstall:
     # 3. Fix permissions
     - curtin in-target --target=/target -- chown -R bensiv:bensiv /home/bensiv/ansible
     
-    # 4. Run the Ansible playbook inside the target
-    - curtin in-target --target=/target -- ansible-playbook /home/bensiv/ansible/site.yml
+    # 4. Bootstrap Ansible and Run (Robust Mode)
+    # We attempt to install ansible. If it fails (no network), we proceed without crashing so the user can fix it later.
+    - curtin in-target --target=/target -- bash -c "apt-get update && apt-get install -y software-properties-common && add-apt-repository -y universe && apt-get update && apt-get install -y ansible || echo 'WARNING: Failed to install Ansible. Check network.'"
 
-    # 5. Cleanup
+    # 5. Run the Ansible playbook if available
+    - curtin in-target --target=/target -- bash -c "if command -v ansible-playbook; then ansible-playbook /home/bensiv/ansible/site.yml; else echo 'SKIPPING: Ansible not found. Run ./install.sh manually after reboot.'; fi"
+
+    # 6. Cleanup
     - umount /mnt/cidata
