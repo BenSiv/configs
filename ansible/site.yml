@@ -4,6 +4,6 @@
   become: yes  # Most tasks require sudo
   roles:
     - common
+    - gnome
     - development
     - user
-    - gnome

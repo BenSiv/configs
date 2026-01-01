@@ -30,6 +30,7 @@
     dest: /opt/antigravity
     remote_src: yes
     creates: /opt/antigravity/antigravity
+  ignore_errors: yes
 
 - name: Symlink Antigravity binary
   file:
