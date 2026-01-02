@@ -12,6 +12,8 @@
       - libasound2t64
       - libgtk-3-0t64
     state: present
+  become: yes
+
 
 - name: Ensure GCC is present
   apt:
@@ -23,6 +25,7 @@
     path: /opt/antigravity
     state: directory
     mode: '0755'
+  become: yes
 
 - name: Download and Unarchive Antigravity
   unarchive:
@@ -32,12 +35,14 @@
     extra_opts: [--strip-components=1]
     creates: /opt/antigravity/antigravity
   ignore_errors: yes
+  become: yes
 
 - name: Symlink Antigravity binary
   file:
     src: /opt/antigravity/antigravity
     dest: /usr/local/bin/antigravity
     state: link
+  become: yes
 
 - name: Create Antigravity Desktop Entry
   template:
@@ -45,4 +50,6 @@
     dest: /usr/share/applications/antigravity.desktop
   vars:
     icon_path: /opt/antigravity/resources/app/icon.png # Approx path, user verify
+  become: yes
+
 

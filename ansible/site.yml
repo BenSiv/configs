@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   connection: local
-  become: yes  # Most tasks require sudo
+  # become: yes removed to allow user-level tasks
   roles:
     - common
     - gnome

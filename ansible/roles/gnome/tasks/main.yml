@@ -7,7 +7,10 @@
       - dconf-cli
       - pipx
       - gnome-shell-extension-manager
+      - gnome-shell-extension-manager
     state: present
+  become: yes
+
 
 - name: Remove Bloatware
   apt:
@@ -33,6 +36,8 @@
       - remmina
     state: absent
     purge: yes
+  become: yes
+
 
 - name: Install gnome-extensions-cli
   community.general.pipx:
