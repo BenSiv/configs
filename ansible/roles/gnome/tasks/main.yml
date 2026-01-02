@@ -5,6 +5,8 @@
       - ubuntu-desktop-minimal
       - gnome-tweaks
       - dconf-cli
+      - pipx
+      - gnome-shell-extension-manager
     state: present
 
 - name: Remove Bloatware
@@ -32,6 +34,19 @@
     state: absent
     purge: yes
 
+- name: Install gnome-extensions-cli
+  community.general.pipx:
+    name: gnome-extensions-cli
+    state: present
+
+- name: Install Gesture Improvements Extension
+  command:
+    cmd: "{{ ansible_env.HOME }}/.local/bin/gnome-extensions-cli install gesture-improvements@harshadgavali.github.com"
+  register: extension_install
+  changed_when: "'Installing' in extension_install.stdout"
+  ignore_errors: yes # Can fail if GNOME shell isn't running or version mismatch, but worth trying
+
+
 - name: Create Pictures directory
   file:
     path: "{{ ansible_env.HOME }}/Pictures"
@@ -39,7 +54,7 @@
 
 - name: Copy Wallpaper
   copy:
-    src: "/home/bensiv/Documents/configs/nix/iso/assets/cosy_cabin.png"
+    src: "{{ playbook_dir }}/assets/cosy_cabin.png"
     dest: "{{ ansible_env.HOME }}/Pictures/cosy_cabin.png"
     force: no
     # Note: Assuming the source path relative to where we run this, or absolute.
@@ -91,4 +106,20 @@
   dconf:
     key: "/org/gnome/desktop/wm/keybindings/toggle-fullscreen"
     value: "['<Control>Return']"
+
+- name: Enable Tap-to-Click
+  dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click"
+    value: "true"
+
+- name: Enable Natural Scrolling
+  dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll"
+    value: "true"
+
+- name: Set Click Method to Fingers (2-finger tap = right click)
+  dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/click-method"
+    value: "'fingers'"
+
 
