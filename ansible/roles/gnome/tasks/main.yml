@@ -127,4 +127,47 @@
     key: "/org/gnome/desktop/peripherals/touchpad/click-method"
     value: "'fingers'"
 
+- name: Install Panel Date Format Extension
+  command:
+    cmd: "{{ ansible_env.HOME }}/.local/bin/gnome-extensions-cli install panel-date-format@keiii.github.com"
+  register: date_extension_install
+  changed_when: "'Installing' in date_extension_install.stdout"
+  ignore_errors: yes
+
+- name: Configure Ubuntu Dock - Position Bottom
+  dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
+    value: "'BOTTOM'"
+
+- name: Configure Ubuntu Dock - Disable Panel Mode (extend-height)
+  dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/extend-height"
+    value: "false"
+
+- name: Configure Ubuntu Dock - Enable Auto Hide
+  dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/dock-fixed"
+    value: "false"
+
+- name: Configure Ubuntu Dock - Remove Default Pinned Apps
+  dconf:
+    key: "/org/gnome/shell/favorite-apps"
+    value: "@as []"
+
+- name: Enable Panel Date Format Extension
+  command:
+    cmd: "{{ ansible_env.HOME }}/.local/bin/gnome-extensions-cli enable panel-date-format@keiii.github.com"
+  ignore_errors: yes
+
+- name: Configure Clock Format Extension
+  dconf:
+    key: "/org/gnome/shell/extensions/panel-date-format/format"
+    value: "'%Y-%m-%d %H:%M'"
+
+- name: Enable Fractional Scaling
+  dconf:
+    key: "/org/gnome/mutter/experimental-features"
+    value: "['scale-monitor-framebuffer']"
+
+
 

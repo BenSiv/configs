@@ -73,32 +73,39 @@
     line: "if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi"
     state: present
 
-- name: Create micro config directory
+- name: Check Micro config status
+  stat:
+    path: "{{ ansible_env.HOME }}/.config/micro"
+  register: micro_conf
+
+- name: Remove Micro config if it is a directory and not a symlink
   file:
     path: "{{ ansible_env.HOME }}/.config/micro"
+    state: absent
+  when: micro_conf.stat.exists and micro_conf.stat.isdir and not micro_conf.stat.islnk
+
+- name: Symlink Micro Config Directory
+  file:
+    src: "{{ ansible_env.HOME }}/configs/micro"
+    dest: "{{ ansible_env.HOME }}/.config/micro"
+    state: link
+    force: yes
+
+- name: Create Antigravity User Config Directory
+  file:
+    path: "{{ ansible_env.HOME }}/.config/Antigravity/User"
     state: directory
 
-- name: Configure Micro settings
-  copy:
-    dest: "{{ ansible_env.HOME }}/.config/micro/settings.json"
-    content: |
-      {
-          "colorscheme": "simple",
-          "statusline": false,
-          "tabstospaces": true,
-          "tabsize": 4,
-          "clipboard": "external",
-          "filetype.bats": "sh"
-      }
+- name: Symlink Antigravity Settings
+  file:
+    src: "{{ ansible_env.HOME }}/configs/vscode/settings.json"
+    dest: "{{ ansible_env.HOME }}/.config/Antigravity/User/settings.json"
+    state: link
+    force: yes
 
-- name: Configure Micro bindings
-  copy:
-    dest: "{{ ansible_env.HOME }}/.config/micro/bindings.json"
-    content: |
-      {
-          "Alt-/": "lua:comment.comment",
-          "CtrlUnderscore": "lua:comment.comment",
-          "Ctrl-Space": "CommandMode",
-          "Alt-PageUp": "NextSplit",
-          "Alt-PageDown": "PreviousSplit"
-      }
+- name: Symlink Antigravity Keybindings
+  file:
+    src: "{{ ansible_env.HOME }}/configs/vscode/keys.json"
+    dest: "{{ ansible_env.HOME }}/.config/Antigravity/User/keybindings.json"
+    state: link
+    force: yes

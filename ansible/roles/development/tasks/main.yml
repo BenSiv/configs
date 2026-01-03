@@ -49,7 +49,7 @@
     src: antigravity.desktop.j2
     dest: /usr/share/applications/antigravity.desktop
   vars:
-    icon_path: /opt/antigravity/resources/app/icon.png # Approx path, user verify
+    icon_path: /opt/antigravity/resources/app/resources/linux/code.png # Approx path, user verify
   become: yes
 
 
