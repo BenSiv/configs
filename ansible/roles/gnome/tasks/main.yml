@@ -134,6 +134,11 @@
   changed_when: "'Installing' in date_extension_install.stdout"
   ignore_errors: yes
 
+- name: Show Battery Percentage
+  dconf:
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "true"
+
 - name: Configure Ubuntu Dock - Position Bottom
   dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"

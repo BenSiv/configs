@@ -41,6 +41,15 @@ else
     echo "FAIL: Schema directory not found at $schema_dir"
 fi
 
+# Verify Battery Percentage
+echo "Checking Battery settings..."
+battery_show=$(gsettings get org.gnome.desktop.interface show-battery-percentage)
+if [[ "$battery_show" == "true" ]]; then
+    echo "PASS: Battery percentage is shown."
+else
+    echo "FAIL: Battery percentage is hidden."
+fi
+
 # 4. Verify Symlinks
 echo "Checking Symlinks..."
 if [[ -L "$HOME/.config/micro" ]]; then
