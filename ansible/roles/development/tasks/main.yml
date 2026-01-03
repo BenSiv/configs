@@ -11,6 +11,7 @@
       - libgbm1
       - libasound2t64
       - libgtk-3-0t64
+      - luarocks
     state: present
   become: yes
 
@@ -19,6 +20,21 @@
   apt:
     name: gcc
     state: present
+
+- name: Install Lua Packages
+  command:
+    cmd: "luarocks install {{ item }}"
+  register: luarocks_result
+  changed_when: "'is already installed' not in luarocks_result.stderr and 'is already installed' not in luarocks_result.stdout"
+  failed_when: 
+    - luarocks_result.rc != 0
+    - "'is already installed' not in luarocks_result.stderr"
+    - "'is already installed' not in luarocks_result.stdout"
+  loop:
+    - luafilesystem
+    - lua-yaml
+    - dkjson
+  become: yes
 
 - name: Create Antigravity directory
   file:

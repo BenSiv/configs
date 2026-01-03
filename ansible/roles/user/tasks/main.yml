@@ -63,15 +63,20 @@
       alias sqlite="sqlite3"
       alias brex="$HOME/Projects/brain-ex/brex"
       alias ted="gnome-text-editor"
-      
-      export LUA_PATH="$HOME/lua-utils/src/?.lua;;"
-      export EDITOR="micro"
 
 - name: Ensure .bash_aliases is sourced in .bashrc
   lineinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
     line: "if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi"
     state: present
+
+- name: Configure Environment Variables in .bashrc
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: User Env Vars"
+    block: |
+      export LUA_PATH="$HOME/Projects/lua-utils/src/?.lua;;"
+      export EDITOR="micro"
 
 - name: Check Micro config status
   stat:

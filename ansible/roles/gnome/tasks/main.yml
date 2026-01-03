@@ -18,6 +18,7 @@
       - aisleriot
       - gnome-mahjongg
       - gnome-mines
+      - firefox
       - gnome-sudoku
       - libreoffice-core
       - libreoffice-common
@@ -46,11 +47,53 @@
 
 - name: Install Gesture Improvements Extension
   command:
-    cmd: "{{ ansible_env.HOME }}/.local/bin/gnome-extensions-cli install gesture-improvements@harshadgavali.github.com"
+    cmd: "{{ ansible_env.HOME }}/.local/bin/gnome-extensions-cli install gestureImprovements@gestures"
   register: extension_install
   changed_when: "'Installing' in extension_install.stdout"
-  ignore_errors: yes # Can fail if GNOME shell isn't running or version mismatch, but worth trying
+  ignore_errors: yes
 
+- name: Enable Gesture Improvements Extension
+  command:
+    cmd: "{{ ansible_env.HOME }}/.local/bin/gnome-extensions-cli enable gestureImprovements@gestures"
+  ignore_errors: yes
+
+- name: Compile Gesture Improvements Schemas
+  command:
+    cmd: "glib-compile-schemas {{ ansible_env.HOME }}/.local/share/gnome-shell/extensions/gestureImprovements@gestures/schemas/"
+  changed_when: false
+
+- name: Configure Gesture Improvements - Enable Window Manipulation
+  dconf:
+    key: "/org/gnome/shell/extensions/gestureImprovements/enable-window-manipulation-gesture"
+    value: "true"
+
+- name: Configure Gesture Improvements - 3-Finger Pinch (Show Desktop)
+  dconf:
+    key: "/org/gnome/shell/extensions/gestureImprovements/pinch-3-finger-gesture"
+    value: "'SHOW_DESKTOP'"
+
+- name: Configure Gesture Improvements - 4-Finger Pinch (None)
+  dconf:
+    key: "/org/gnome/shell/extensions/gestureImprovements/pinch-4-finger-gesture"
+    value: "'NONE'"
+
+
+- name: Install Blur My Shell Extension
+  command:
+    cmd: "{{ ansible_env.HOME }}/.local/bin/gnome-extensions-cli install blur-my-shell@aunetx"
+  register: blur_install
+  changed_when: "'Installing' in blur_install.stdout"
+  ignore_errors: yes
+
+- name: Enable Blur My Shell Extension
+  command:
+    cmd: "{{ ansible_env.HOME }}/.local/bin/gnome-extensions-cli enable blur-my-shell@aunetx"
+  ignore_errors: yes
+
+- name: Configure Utilities App Folder
+  dconf:
+    key: "/org/gnome/desktop/app-folders/folders/Utilities/apps"
+    value: "['gnome-abrt.desktop', 'gnome-system-log.desktop', 'nm-connection-editor.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Connections.desktop', 'org.gnome.DejaDup.desktop', 'org.gnome.Dictionary.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.fonts.desktop', 'org.gnome.Loupe.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'vinagre.desktop', 'org.gnome.PowerStats.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'org.gnome.SystemMonitor.desktop']"
 
 - name: Create Pictures directory
   file:
@@ -162,6 +205,11 @@
 - name: Configure Ubuntu Dock - Disable Trash Icon
   dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/show-trash"
+    value: "false"
+
+- name: Configure Ubuntu Dock - Disable Home Icon
+  dconf:
+    key: "/org/gnome/shell/extensions/ding/show-home"
     value: "false"
 
 - name: Enable Panel Date Format Extension
