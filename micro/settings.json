@@ -1,10 +1,8 @@
 {
-    colorscheme : "bensiv",
-    statusline: false,
-    tabstospaces: true,
-    tabsize: 4,
-    clipboard: "external",
-    filetype: {
-        bats: "sh"
-    }
+    "colorscheme": "bensiv",
+    "filetype": {
+        "bats": "sh"
+    },
+    "statusline": false,
+    "tabstospaces": true
 }

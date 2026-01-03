@@ -154,10 +154,20 @@
     key: "/org/gnome/shell/favorite-apps"
     value: "@as []"
 
+- name: Configure Ubuntu Dock - Disable Trash Icon
+  dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/show-trash"
+    value: "false"
+
 - name: Enable Panel Date Format Extension
   command:
     cmd: "{{ ansible_env.HOME }}/.local/bin/gnome-extensions-cli enable panel-date-format@keiii.github.com"
   ignore_errors: yes
+
+- name: Compile Panel Date Format Schemas
+  command:
+    cmd: "glib-compile-schemas {{ ansible_env.HOME }}/.local/share/gnome-shell/extensions/panel-date-format@keiii.github.com/schemas/"
+  changed_when: false
 
 - name: Configure Clock Format Extension
   dconf:
