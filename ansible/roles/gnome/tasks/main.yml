@@ -90,10 +90,55 @@
     cmd: "{{ ansible_env.HOME }}/.local/bin/gnome-extensions-cli enable blur-my-shell@aunetx"
   ignore_errors: yes
 
+- name: Compile Blur My Shell Schemas
+  command:
+    cmd: "glib-compile-schemas {{ ansible_env.HOME }}/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/schemas/"
+  changed_when: false
+
+- name: Configure Blur My Shell - Main
+  dconf:
+    key: "/org/gnome/shell/extensions/blur-my-shell/settings-version"
+    value: "1"
+
+- name: Configure Blur My Shell - Panel
+  dconf:
+    key: "/org/gnome/shell/extensions/blur-my-shell/panel/blur"
+    value: "true"
+
+- name: Configure Blur My Shell - Overview
+  dconf:
+    key: "/org/gnome/shell/extensions/blur-my-shell/overview/blur"
+    value: "true"
+
+- name: Configure Blur My Shell - App Folders
+  dconf:
+    key: "/org/gnome/shell/extensions/blur-my-shell/appfolder/blur"
+    value: "true"
+
+- name: Configure App Folder Children
+  dconf:
+    key: "/org/gnome/desktop/app-folders/folder-children"
+    value: "['Utilities', 'System']"
+
 - name: Configure Utilities App Folder
   dconf:
     key: "/org/gnome/desktop/app-folders/folders/Utilities/apps"
-    value: "['gnome-abrt.desktop', 'gnome-system-log.desktop', 'nm-connection-editor.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Connections.desktop', 'org.gnome.DejaDup.desktop', 'org.gnome.Dictionary.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.fonts.desktop', 'org.gnome.Loupe.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'vinagre.desktop', 'org.gnome.PowerStats.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'org.gnome.SystemMonitor.desktop']"
+    value: "['org.gnome.Calculator.desktop', 'org.gnome.clocks.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.font-viewer.desktop', 'org.gnome.Logs.desktop', 'org.gnome.PowerStats.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.SystemMonitor.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'org.gnome.TextEditor.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'yelp.desktop', 'org.gnome.Loupe.desktop', 'org.gnome.eog.desktop', 'org.gnome.Characters.desktop', 'org.gnome.Connections.desktop', 'info.desktop', 'vim.desktop', 'org.gnome.Zenity.desktop', 'gnome-abrt.desktop', 'gnome-system-log.desktop', 'org.gnome.Dictionary.desktop']"
+
+- name: Configure System App Folder
+  dconf:
+    key: "/org/gnome/desktop/app-folders/folders/System/apps"
+    value: "['org.gnome.Settings.desktop', 'gnome-session-properties.desktop', 'software-properties-gtk.desktop', 'nm-connection-editor.desktop', 'org.gnome.Shell.Extensions.desktop', 'gnome-language-selector.desktop', 'update-manager.desktop', 'software-properties-drivers.desktop', 'software-properties-livepatch.desktop', 'im-config.desktop', 'ibus-setup-table.desktop', 'org.freedesktop.IBus.Setup.desktop', 'gnome-initial-setup.desktop', 'ca.desrt.dconf-editor.desktop', 'firmware-updater_firmware-updater.desktop']"
+
+- name: Configure System App Folder Name
+  dconf:
+    key: "/org/gnome/desktop/app-folders/folders/System/name"
+    value: "'System'"
+
+- name: Configure App Picker Layout (Order)
+  dconf:
+    key: "/org/gnome/shell/app-picker-layout"
+    value: "[{'org.gnome.Terminal.desktop': <{'position': <0>}>, 'org.gnome.Nautilus.desktop': <{'position': <1>}>, 'google-chrome.desktop': <{'position': <2>}>, 'antigravity.desktop': <{'position': <3>}>, 'micro.desktop': <{'position': <4>}>, 'Utilities': <{'position': <5>}>, 'System': <{'position': <6>}>}]"
 
 - name: Create Pictures directory
   file:
