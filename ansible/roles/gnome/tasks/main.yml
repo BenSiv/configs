@@ -115,6 +115,11 @@
     key: "/org/gnome/shell/extensions/blur-my-shell/appfolder/blur"
     value: "true"
 
+- name: Configure Blur My Shell - Panel Dynamic Override
+  dconf:
+    key: "/org/gnome/shell/extensions/blur-my-shell/panel/override-background-dynamically"
+    value: "true"
+
 - name: Configure App Folder Children
   dconf:
     key: "/org/gnome/desktop/app-folders/folder-children"
@@ -138,7 +143,7 @@
 - name: Configure App Picker Layout (Order)
   dconf:
     key: "/org/gnome/shell/app-picker-layout"
-    value: "[{'org.gnome.Terminal.desktop': <{'position': <0>}>, 'org.gnome.Nautilus.desktop': <{'position': <1>}>, 'google-chrome.desktop': <{'position': <2>}>, 'antigravity.desktop': <{'position': <3>}>, 'micro.desktop': <{'position': <4>}>, 'Utilities': <{'position': <5>}>, 'System': <{'position': <6>}>}]"
+    value: "[{'org.gnome.Terminal.desktop': <{'position': <0>}>, 'org.gnome.Nautilus.desktop': <{'position': <1>}>, 'google-chrome.desktop': <{'position': <2>}>, 'antigravity.desktop': <{'position': <3>}>, 'micro.desktop': <{'position': <4>}>, 'snap-store_ubuntu-software.desktop': <{'position': <5>}>, 'whatsapp-linux-app_whatsapp-linux-app.desktop': <{'position': <6>}>, 'Utilities': <{'position': <7>}>, 'System': <{'position': <8>}>}]"
 
 - name: Create Pictures directory
   file:
