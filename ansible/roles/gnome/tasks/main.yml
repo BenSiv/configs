@@ -282,5 +282,15 @@
     key: "/org/gnome/mutter/experimental-features"
     value: "['scale-monitor-framebuffer']"
 
+- name: Configure Gnome Terminal Background Color
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-color"
+    value: "'#303030'"
+
+- name: Configure Gnome Terminal Use Theme Colors
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-colors"
+    value: "false"
+
 
 
