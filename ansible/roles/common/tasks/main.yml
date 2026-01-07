@@ -22,6 +22,8 @@
       - pandoc
       - texlive-xetex
       - build-essential
+      - pass
+      - gnupg
     state: present
   become: yes
 
