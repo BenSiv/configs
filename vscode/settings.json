@@ -5,7 +5,6 @@
     "window.zoomLevel": 0.8,
     "window.menuBarVisibility": "compact",
     "window.commandCenter": false,
-
     // ───── Workbench ─────
     "workbench.startupEditor": "none",
     "workbench.layoutControl.enabled": false,
@@ -22,7 +21,6 @@
         "statusBar.noFolderBackground": "#303030",
         "statusBar.debuggingBackground": "#511f1f"
     },
-
     // ───── Editor ─────
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "none",
@@ -36,12 +34,10 @@
     "editor.scrollbar.horizontal": "hidden",
     "editor.cursorBlinking": "solid",
     "breadcrumbs.enabled": false,
-
     // ───── Files ─────
     "files.associations": {
         "*.bats": "shellscript"
     },
-
     // ───── Terminal ─────
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.defaultProfile.linux": "bash",
@@ -53,27 +49,21 @@
     "terminal.integrated.commandsToSkipShell": [
         "language-julia.interrupt"
     ],
-
     // ───── Notebook ─────
     "notebook.globalToolbar": false,
     "notebook.consolidatedOutputButton": false,
-
     // ───── Language Specific ─────
-
     // Python
     "python.linting.enabled": false,
     "python.terminal.activateEnvironment": false,
-
     // Julia
     "julia.symbolCacheDownload": true,
     "julia.NumThreads": "auto",
     "julia.enableTelemetry": true,
     "julia.execution.codeInREPL": true,
     "julia.execution.resultType": "REPL",
-
     // Chat
     "chat.commandCenter.enabled": false,
-
     // Dev Containers / Podman
     "dev.containers.dockerPath": "podman",
     "dev.containers.dockerComposePath": "podman",
@@ -82,7 +72,8 @@
         "PODMAN_USERNS": "keep-id"
     },
     "containerUser": "vscode",
-
     // ───── Security ─────
-    "security.workspace.trust.untrustedFiles": "open"
+    "security.workspace.trust.untrustedFiles": "open",
+    "clangd.path": "/home/bensiv/.config/Antigravity/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/21.1.0/clangd_21.1.0/bin/clangd",
+    "python.languageServer": "Default"
 }
