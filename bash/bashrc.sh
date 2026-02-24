@@ -12,3 +12,8 @@ fi
 export LUA_PATH="$HOME/Projects/lua-utils/src/?.lua;;"
 # export LUA_INIT="require('utils').using('utils')"
 export TERM=xterm-256color
+
+export PATH=$PATH:/home/bensiv/Projects/Odin
+# >>> xmake >>>
+test -f "/home/bensiv/.xmake/profile" && source "/home/bensiv/.xmake/profile"
+# <<< xmake <<<
