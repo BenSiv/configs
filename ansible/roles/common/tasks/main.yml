@@ -28,6 +28,26 @@
   become: yes
 
 
+- name: Install Quarto
+  block:
+    - name: Download Quarto deb package
+      get_url:
+        url: "https://github.com/quarto-dev/quarto-cli/releases/download/v1.4.550/quarto-1.4.550-linux-amd64.deb"
+        dest: "/tmp/quarto-1.4.550-linux-amd64.deb"
+        mode: '0644'
+
+    - name: Install Quarto package using apt
+      apt:
+        deb: "/tmp/quarto-1.4.550-linux-amd64.deb"
+        state: present
+      become: yes
+
+    - name: Clean up Quarto deb package
+      file:
+        path: "/tmp/quarto-1.4.550-linux-amd64.deb"
+        state: absent
+
+
 - name: Download Google Chrome .deb
   get_url:
     url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
