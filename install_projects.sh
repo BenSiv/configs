@@ -30,7 +30,7 @@ fi
 echo "Building luam..."
 cd "$PROJECTS_DIR/luam"
 # Clean and build core
-bash bld/build_ansi.sh
+bash bld/build_lang.sh
 # Build libraries (needed for other projects)
 bash bld/build_libs.sh
 
@@ -49,10 +49,10 @@ bash bld/build.sh
 # 4. Install binaries
 echo "Installing binaries to /usr/local/bin..."
 # Remove first to avoid "Text file busy" error when binary is running
-sudo rm -f /usr/local/bin/luam /usr/local/bin/brex /usr/local/bin/luametry
+rm -f /usr/local/bin/luam /usr/local/bin/brex /usr/local/bin/luametry
 # Copy new binaries
-sudo cp "$PROJECTS_DIR/luam/bin/luam" /usr/local/bin/luam
-sudo cp "$PROJECTS_DIR/brain-ex/bin/brex" /usr/local/bin/brex
-sudo cp "$PROJECTS_DIR/luametry/bin/luametry" /usr/local/bin/luametry
+cp "$PROJECTS_DIR/luam/bin/luam" /usr/local/bin/luam
+cp "$PROJECTS_DIR/brain-ex/bin/brex" /usr/local/bin/brex
+cp "$PROJECTS_DIR/luametry/bin/luametry" /usr/local/bin/luametry
 
 echo "Installation complete!"

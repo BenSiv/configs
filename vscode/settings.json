@@ -2,7 +2,7 @@
     // ───── Window ─────
     "window.title": " ",
     "window.restoreWindows": "none",
-    "window.zoomLevel": 0.8,
+    "window.zoomLevel": 1,
     "window.menuBarVisibility": "compact",
     "window.commandCenter": false,
     // ───── Workbench ─────
@@ -41,11 +41,16 @@
     // ───── Terminal ─────
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+    "terminal.integrated.profiles.windows": {
+        "JavaScript Debug Terminal": null
+    },
     // "terminal.integrated.automationProfile.linux": {},
     "terminal.integrated.shellIntegration.decorationsEnabled": "never",
     "terminal.integrated.rightClickBehavior": "default",
     "terminal.integrated.tabs.location": "left",
     "terminal.integrated.stickyScroll.enabled": false,
+    "terminal.integrated.fontFamily": "'Roboto Mono', monospace",
     "terminal.integrated.commandsToSkipShell": [
         "language-julia.interrupt"
     ],
@@ -67,13 +72,13 @@
     // Dev Containers / Podman
     "dev.containers.dockerPath": "podman",
     "dev.containers.dockerComposePath": "podman",
-    "dev.containers.dockerSocketPath": "/usr/lib/systemd/user/podman.socket",
+    "dev.containers.dockerSocketPath": "/run/user/1000/podman/podman.sock",
     "remoteEnv": {
         "PODMAN_USERNS": "keep-id"
     },
     "containerUser": "vscode",
     // ───── Security ─────
     "security.workspace.trust.untrustedFiles": "open",
-    "clangd.path": "/home/bensiv/.config/Antigravity/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/21.1.0/clangd_21.1.0/bin/clangd",
-    "python.languageServer": "Default"
+    "editor.fontFamily": "'Roboto Mono', monospace",
+    "markdown.preview.fontFamily": "'Roboto Mono', monospace"
 }
