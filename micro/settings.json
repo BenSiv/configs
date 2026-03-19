@@ -3,6 +3,8 @@
     "filetype": {
         "bats": "sh"
     },
+    "softwrap": true,
     "statusline": false,
-    "tabstospaces": true
+    "tabstospaces": true,
+    "wordwrap": true
 }
