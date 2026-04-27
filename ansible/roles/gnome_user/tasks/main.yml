@@ -99,6 +99,6 @@
 
 - name: Copy Wallpaper
   copy:
-    src: "{{ project_dir }}/assets/cosy_cabin.png"
+    src: cosy_cabin.png
     dest: "{{ user_home }}/Pictures/cosy_cabin.png"
     force: no
