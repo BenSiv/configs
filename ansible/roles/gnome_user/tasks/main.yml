@@ -1,8 +1,14 @@
 ---
-- name: Install gnome-extensions-cli
-  community.general.pipx:
-    name: gnome-extensions-cli
-    state: present
+- name: Ensure .local/bin exists
+  file:
+    path: "{{ user_home }}/.local/bin"
+    state: directory
+    mode: '0755'
+
+- name: Install gnome-extensions-cli via pipx
+  command:
+    cmd: "pipx install gnome-extensions-cli"
+    creates: "{{ user_home }}/.local/bin/gnome-extensions-cli"
 
 - name: Install GNOME Extensions
   command:
@@ -14,6 +20,9 @@
   register: extension_install
   changed_when: "'Installing' in extension_install.stdout"
   ignore_errors: yes
+  environment:
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ real_user_uid }}/bus"
+    XDG_RUNTIME_DIR: "/run/user/{{ real_user_uid }}"
 
 - name: Enable GNOME Extensions
   command:
@@ -23,6 +32,9 @@
     - blur-my-shell@aunetx
     - panel-date-format@keiii.github.com
   ignore_errors: yes
+  environment:
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ real_user_uid }}/bus"
+    XDG_RUNTIME_DIR: "/run/user/{{ real_user_uid }}"
 
 - name: Compile Extension Schemas
   command:
@@ -76,6 +88,9 @@
     - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-color", value: "'#171717'" }
     - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/foreground-color", value: "'#FFFFFF'" }
     - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-colors", value: "false" }
+  environment:
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ real_user_uid }}/bus"
+    XDG_RUNTIME_DIR: "/run/user/{{ real_user_uid }}"
 
 - name: Create Pictures directory
   file:

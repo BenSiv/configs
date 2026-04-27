@@ -1,5 +1,11 @@
 ---
 # Global variables
-username: "{{ lookup('env', 'USER') }}"
-user_home: "{{ lookup('env', 'HOME') }}"
+# Robustly find the non-root user even if run with sudo
+real_user: "{{ lookup('env', 'SUDO_USER') | default(lookup('env', 'USER'), true) }}"
+real_user_home: "{{ lookup('pipe', 'getent passwd ' + real_user + ' | cut -d: -f6') }}"
+real_user_uid: "{{ lookup('pipe', 'id -u ' + real_user) }}"
+
+# Deprecated - migration support
+username: "{{ real_user }}"
+user_home: "{{ real_user_home }}"
 project_dir: "{{ playbook_dir }}"

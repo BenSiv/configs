@@ -1,7 +1,8 @@
 ---
 - hosts: localhost
   connection: local
-  become: no
+  become: yes
+  become_user: "{{ real_user }}"
   roles:
     - dotfiles
     - gnome_user
