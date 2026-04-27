@@ -1,4 +1,9 @@
 ---
+- name: Check if GPG key storage device is connected
+  stat:
+    path: "/run/user/1000/gvfs/mtp:host=Sony_XQ-FE72_HQ65991561/Internal shared storage/Passtore"
+  register: gpg_storage
+
 - name: Import GPG Keys
   command:
     cmd: "gpg --import \"/run/user/1000/gvfs/mtp:host=Sony_XQ-FE72_HQ65991561/Internal shared storage/Passtore/{{ item }}\""
@@ -7,6 +12,7 @@
     - pass-secret-key.asc
   changed_when: false
   ignore_errors: yes
+  when: gpg_storage.stat.exists
 
 - name: Trust GPG Key
   shell:
