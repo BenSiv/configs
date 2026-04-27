@@ -76,6 +76,7 @@
     - { key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click", value: "true" }
     - { key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll", value: "true" }
     - { key: "/org/gnome/desktop/peripherals/touchpad/click-method", value: "'fingers'" }
+    - { key: "/org/gnome/desktop/interface/gtk-enable-primary-paste", value: "true" }
     - { key: "/org/gnome/desktop/interface/show-battery-percentage", value: "true" }
     - { key: "/org/gnome/shell/extensions/dash-to-dock/dock-position", value: "'BOTTOM'" }
     - { key: "/org/gnome/shell/extensions/dash-to-dock/extend-height", value: "false" }
@@ -87,9 +88,8 @@
     - { key: "/org/gnome/mutter/experimental-features", value: "['scale-monitor-framebuffer']" }
     - { key: "/org/gnome/terminal/legacy/profiles:/list", value: "['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']" }
     - { key: "/org/gnome/terminal/legacy/profiles:/default", value: "'b1dcc9dd-5262-4d8d-a863-c897e6d979b9'" }
-    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-color", value: "'#171717'" }
-    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/foreground-color", value: "'#FFFFFF'" }
-    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-colors", value: "false" }
+    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-colors", value: "true" }
+    - { key: "/org/gnome/desktop/interface/text-scaling-factor", value: "1.2" }
   environment:
     DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ real_user_uid }}/bus"
     XDG_RUNTIME_DIR: "/run/user/{{ real_user_uid }}"
