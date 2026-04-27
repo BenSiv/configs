@@ -88,8 +88,9 @@
     - { key: "/org/gnome/mutter/experimental-features", value: "['scale-monitor-framebuffer']" }
     - { key: "/org/gnome/terminal/legacy/profiles:/list", value: "['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']" }
     - { key: "/org/gnome/terminal/legacy/profiles:/default", value: "'b1dcc9dd-5262-4d8d-a863-c897e6d979b9'" }
-    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-colors", value: "true" }
-    - { key: "/org/gnome/desktop/interface/text-scaling-factor", value: "1.2" }
+    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-colors", value: "false" }
+    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-color", value: "'#1e1e1e'" }
+    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/foreground-color", value: "'#d0d0d0'" }
   environment:
     DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ real_user_uid }}/bus"
     XDG_RUNTIME_DIR: "/run/user/{{ real_user_uid }}"
