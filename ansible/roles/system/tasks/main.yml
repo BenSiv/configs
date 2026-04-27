@@ -22,6 +22,9 @@
       - build-essential
       - pass
       - gnupg
+      - cmake
+      - libreadline-dev
+      - libsqlite3-dev
     state: present
 
 - name: Install Quarto

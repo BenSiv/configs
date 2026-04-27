@@ -1,0 +1,61 @@
+---
+- name: Update Manifold submodules
+  command:
+    cmd: "git submodule update --init --recursive"
+    chdir: "{{ user_home }}/Projects/manifold"
+  become: yes
+  become_user: "{{ real_user }}"
+  ignore_errors: yes
+
+- name: Build Manifold
+  block:
+    - name: Configure Manifold with CMake
+      command:
+        cmd: "cmake -S {{ user_home }}/Projects/manifold -B {{ user_home }}/Projects/manifold/build -DCMAKE_BUILD_TYPE=Release"
+        creates: "{{ user_home }}/Projects/manifold/build/Makefile"
+      become: yes
+      become_user: "{{ real_user }}"
+
+    - name: Build Manifold
+      command:
+        cmd: "cmake --build {{ user_home }}/Projects/manifold/build -j{{ ansible_facts['processor_vcpus'] | default(2) }}"
+      become: yes
+      become_user: "{{ real_user }}"
+
+- name: Build luam
+  shell:
+    cmd: "bash bld/build_lang.sh && bash bld/build_libs.sh"
+    chdir: "{{ user_home }}/Projects/luam"
+    creates: "{{ user_home }}/Projects/luam/bin/luam"
+  become: yes
+  become_user: "{{ real_user }}"
+
+- name: Build brain-ex
+  shell:
+    cmd: "bash bld/build.sh"
+    chdir: "{{ user_home }}/Projects/brain-ex"
+    creates: "{{ user_home }}/Projects/brain-ex/bin/brex"
+  become: yes
+  become_user: "{{ real_user }}"
+
+- name: Build luametry
+  shell:
+    cmd: "bash bld/build.sh"
+    chdir: "{{ user_home }}/Projects/luametry"
+    creates: "{{ user_home }}/Projects/luametry/bin/luametry"
+  environment:
+    LUAM_DIR: "{{ user_home }}/Projects/luam"
+    MANIFOLD_DIR: "{{ user_home }}/Projects/manifold"
+    PATH: "{{ user_home }}/Projects/luam/bin:{{ ansible_facts['env']['PATH'] }}"
+  become: yes
+  become_user: "{{ real_user }}"
+
+- name: Install Project Binaries
+  file:
+    src: "{{ user_home }}/Projects/{{ item.project }}/bin/{{ item.binary }}"
+    dest: "/usr/local/bin/{{ item.link }}"
+    state: link
+  loop:
+    - { project: 'luam', binary: 'luam', link: 'luam' }
+    - { project: 'brain-ex', binary: 'brex', link: 'brex' }
+    - { project: 'luametry', binary: 'luametry', link: 'luametry' }

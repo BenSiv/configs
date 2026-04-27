@@ -1,0 +1,22 @@
+---
+- name: Import GPG Keys
+  command:
+    cmd: "gpg --import \"/run/user/1000/gvfs/mtp:host=Sony_XQ-FE72_HQ65991561/Internal shared storage/Passtore/{{ item }}\""
+  loop:
+    - pass-public-key.asc
+    - pass-secret-key.asc
+  changed_when: false
+  ignore_errors: yes
+
+- name: Trust GPG Key
+  shell:
+    cmd: "echo 'C37113A9F2DD0CCC798522DEA748A133F7C13732:6:' | gpg --import-ownertrust"
+  changed_when: false
+
+- name: Clone Password Store
+  git:
+    repo: "https://{{ github_token | default('') }}@github.com/BenSiv/pass.git"
+    dest: "{{ user_home }}/.password-store"
+    recursive: yes
+    update: no
+  when: github_token is defined and github_token != ''

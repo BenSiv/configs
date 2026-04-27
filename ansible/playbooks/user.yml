@@ -6,3 +6,4 @@
   roles:
     - dotfiles
     - gnome_user
+    - dev_user

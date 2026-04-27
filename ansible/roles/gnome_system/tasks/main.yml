@@ -34,3 +34,9 @@
       - remmina
     state: absent
     purge: yes
+
+- name: Remove Firefox snap
+  community.general.snap:
+    name: firefox
+    state: absent
+  ignore_errors: yes

@@ -19,7 +19,19 @@
   file:
     path: "{{ user_home }}/Projects"
     state: directory
+    owner: "{{ real_user }}"
+    group: "{{ real_user }}"
     mode: '0755'
+
+- name: Ensure Projects subdirectories are owned by user
+  file:
+    path: "{{ user_home }}/Projects"
+    state: directory
+    owner: "{{ real_user }}"
+    group: "{{ real_user }}"
+    recurse: yes
+  become: yes
+  become_user: root
 
 - name: Clone Repositories
   git:
@@ -27,11 +39,16 @@
     dest: "{{ user_home }}/Projects/{{ item | basename | splitext | first }}"
     recursive: yes
     update: no
+  become: yes
+  become_user: "{{ real_user }}"
   loop:
     - "https://github.com/BenSiv/configs.git"
     - "https://github.com/BenSiv/lua-utils.git"
     - "https://github.com/BenSiv/lua-automations.git"
     - "https://github.com/BenSiv/brain-ex.git"
+    - "https://github.com/BenSiv/luam.git"
+    - "https://github.com/BenSiv/luametry.git"
+    - "https://github.com/elalish/manifold.git"
 
 - name: Symlink Dotfiles
   file:
@@ -65,17 +82,31 @@
 
 - name: Configure Antigravity User Settings
   block:
-    - name: Create Antigravity User Config Directory
+    - name: Create Antigravity Config Directories
       file:
-        path: "{{ user_home }}/.config/Antigravity/User"
+        path: "{{ item }}"
         state: directory
+        owner: "{{ real_user }}"
+        group: "{{ real_user }}"
+        mode: '0755'
+      become: yes
+      become_user: root
+      loop:
+        - "{{ user_home }}/.config/Antigravity"
+        - "{{ user_home }}/.config/Antigravity/User"
+        - "{{ user_home }}/.antigravity"
+        - "{{ user_home }}/.antigravity/extensions"
 
     - name: Symlink Antigravity Settings
       file:
         src: "{{ user_home }}/Projects/configs/vscode/{{ item.src }}"
         dest: "{{ user_home }}/.config/Antigravity/User/{{ item.dest }}"
         state: link
+        owner: "{{ real_user }}"
+        group: "{{ real_user }}"
         force: yes
+      become: yes
+      become_user: root
       loop:
         - { src: 'settings.json', dest: 'settings.json' }
         - { src: 'keys.json', dest: 'keybindings.json' }
