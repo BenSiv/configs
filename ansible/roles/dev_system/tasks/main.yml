@@ -12,13 +12,7 @@
       - libasound2t64
       - libgtk-3-0t64
       - luarocks
-    state: present
-  become: yes
-
-
-- name: Ensure GCC is present
-  apt:
-    name: gcc
+      - gcc
     state: present
 
 - name: Install Lua Packages
@@ -34,14 +28,12 @@
     - luafilesystem
     - lua-yaml
     - dkjson
-  become: yes
 
 - name: Create Antigravity directory
   file:
     path: /opt/antigravity
     state: directory
     mode: '0755'
-  become: yes
 
 - name: Download and Unarchive Antigravity
   unarchive:
@@ -51,21 +43,16 @@
     extra_opts: [--strip-components=1]
     creates: /opt/antigravity/antigravity
   ignore_errors: yes
-  become: yes
 
 - name: Symlink Antigravity binary
   file:
     src: /opt/antigravity/antigravity
     dest: /usr/local/bin/antigravity
     state: link
-  become: yes
 
 - name: Create Antigravity Desktop Entry
   template:
     src: antigravity.desktop.j2
     dest: /usr/share/applications/antigravity.desktop
   vars:
-    icon_path: /opt/antigravity/resources/app/resources/linux/code.png # Approx path, user verify
-  become: yes
-
-
+    icon_path: /opt/antigravity/resources/app/resources/linux/code.png

@@ -1,0 +1,36 @@
+---
+- name: Install GNOME Tools
+  apt:
+    name:
+      - ubuntu-desktop-minimal
+      - gnome-tweaks
+      - dconf-cli
+      - pipx
+      - gnome-shell-extension-manager
+    state: present
+
+- name: Remove Bloatware
+  apt:
+    name:
+      - aisleriot
+      - gnome-mahjongg
+      - gnome-mines
+      - firefox
+      - gnome-sudoku
+      - libreoffice-core
+      - libreoffice-common
+      - libreoffice-calc
+      - libreoffice-draw
+      - libreoffice-gnome
+      - libreoffice-gtk3
+      - libreoffice-impress
+      - libreoffice-math
+      - libreoffice-writer
+      - rhythmbox
+      - shotwell
+      - thunderbird
+      - transmission-common
+      - transmission-gtk
+      - remmina
+    state: absent
+    purge: yes

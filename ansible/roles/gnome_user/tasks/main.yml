@@ -1,0 +1,89 @@
+---
+- name: Install gnome-extensions-cli
+  community.general.pipx:
+    name: gnome-extensions-cli
+    state: present
+
+- name: Install GNOME Extensions
+  command:
+    cmd: "{{ user_home }}/.local/bin/gnome-extensions-cli install {{ item }}"
+  loop:
+    - gestureImprovements@gestures
+    - blur-my-shell@aunetx
+    - panel-date-format@keiii.github.com
+  register: extension_install
+  changed_when: "'Installing' in extension_install.stdout"
+  ignore_errors: yes
+
+- name: Enable GNOME Extensions
+  command:
+    cmd: "{{ user_home }}/.local/bin/gnome-extensions-cli enable {{ item }}"
+  loop:
+    - gestureImprovements@gestures
+    - blur-my-shell@aunetx
+    - panel-date-format@keiii.github.com
+  ignore_errors: yes
+
+- name: Compile Extension Schemas
+  command:
+    cmd: "glib-compile-schemas {{ user_home }}/.local/share/gnome-shell/extensions/{{ item }}/schemas/"
+  loop:
+    - gestureImprovements@gestures
+    - blur-my-shell@aunetx
+    - panel-date-format@keiii.github.com
+  changed_when: false
+  ignore_errors: yes
+
+- name: Configure GNOME Settings (dconf)
+  dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - { key: "/org/gnome/shell/extensions/gestureImprovements/enable-window-manipulation-gesture", value: "true" }
+    - { key: "/org/gnome/shell/extensions/gestureImprovements/pinch-3-finger-gesture", value: "'SHOW_DESKTOP'" }
+    - { key: "/org/gnome/shell/extensions/gestureImprovements/pinch-4-finger-gesture", value: "'NONE'" }
+    - { key: "/org/gnome/shell/extensions/blur-my-shell/settings-version", value: "1" }
+    - { key: "/org/gnome/shell/extensions/blur-my-shell/panel/blur", value: "true" }
+    - { key: "/org/gnome/shell/extensions/blur-my-shell/overview/blur", value: "true" }
+    - { key: "/org/gnome/shell/extensions/blur-my-shell/appfolder/blur", value: "true" }
+    - { key: "/org/gnome/shell/extensions/blur-my-shell/panel/override-background-dynamically", value: "true" }
+    - { key: "/org/gnome/desktop/app-folders/folder-children", value: "['Utilities', 'System']" }
+    - { key: "/org/gnome/desktop/app-folders/folders/Utilities/apps", value: "['org.gnome.Calculator.desktop', 'org.gnome.clocks.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.font-viewer.desktop', 'org.gnome.Logs.desktop', 'org.gnome.PowerStats.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.SystemMonitor.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'org.gnome.TextEditor.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'yelp.desktop', 'org.gnome.Loupe.desktop', 'org.gnome.eog.desktop', 'org.gnome.Characters.desktop', 'org.gnome.Connections.desktop', 'info.desktop', 'vim.desktop', 'org.gnome.Zenity.desktop', 'gnome-abrt.desktop', 'gnome-system-log.desktop', 'org.gnome.Dictionary.desktop']" }
+    - { key: "/org/gnome/desktop/app-folders/folders/System/apps", value: "['org.gnome.Settings.desktop', 'gnome-session-properties.desktop', 'software-properties-gtk.desktop', 'nm-connection-editor.desktop', 'org.gnome.Shell.Extensions.desktop', 'gnome-language-selector.desktop', 'update-manager.desktop', 'software-properties-drivers.desktop', 'software-properties-livepatch.desktop', 'im-config.desktop', 'ibus-setup-table.desktop', 'org.freedesktop.IBus.Setup.desktop', 'gnome-initial-setup.desktop', 'ca.desrt.dconf-editor.desktop', 'firmware-updater_firmware-updater.desktop']" }
+    - { key: "/org/gnome/desktop/app-folders/folders/System/name", value: "'System'" }
+    - { key: "/org/gnome/shell/app-picker-layout", value: "[{'org.gnome.Terminal.desktop': <{'position': <0>}>, 'org.gnome.Nautilus.desktop': <{'position': <1>}>, 'google-chrome.desktop': <{'position': <2>}>, 'antigravity.desktop': <{'position': <3>}>, 'micro.desktop': <{'position': <4>}>, 'snap-store_ubuntu-software.desktop': <{'position': <5>}>, 'whatsapp-linux-app_whatsapp-linux-app.desktop': <{'position': <6>}>, 'Utilities': <{'position': <7>}>, 'System': <{'position': <8>}>}]" }
+    - { key: "/org/gnome/desktop/interface/color-scheme", value: "'prefer-dark'" }
+    - { key: "/org/gnome/desktop/interface/accent-color", value: "'orange'" }
+    - { key: "/org/gnome/desktop/background/picture-uri", value: "'file://{{ user_home }}/Pictures/cosy_cabin.png'" }
+    - { key: "/org/gnome/desktop/background/picture-uri-dark", value: "'file://{{ user_home }}/Pictures/cosy_cabin.png'" }
+    - { key: "/org/gnome/mutter/dynamic-workspaces", value: "false" }
+    - { key: "/org/gnome/desktop/wm/preferences/num-workspaces", value: "1" }
+    - { key: "/org/gnome/desktop/interface/clock-show-date", value: "true" }
+    - { key: "/org/gnome/desktop/interface/clock-format", value: "'24h'" }
+    - { key: "/org/gnome/desktop/wm/keybindings/toggle-fullscreen", value: "['<Control>Return']" }
+    - { key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click", value: "true" }
+    - { key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll", value: "true" }
+    - { key: "/org/gnome/desktop/peripherals/touchpad/click-method", value: "'fingers'" }
+    - { key: "/org/gnome/desktop/interface/show-battery-percentage", value: "true" }
+    - { key: "/org/gnome/shell/extensions/dash-to-dock/dock-position", value: "'BOTTOM'" }
+    - { key: "/org/gnome/shell/extensions/dash-to-dock/extend-height", value: "false" }
+    - { key: "/org/gnome/shell/extensions/dash-to-dock/dock-fixed", value: "false" }
+    - { key: "/org/gnome/shell/favorite-apps", value: "@as []" }
+    - { key: "/org/gnome/shell/extensions/dash-to-dock/show-trash", value: "false" }
+    - { key: "/org/gnome/shell/extensions/ding/show-home", value: "false" }
+    - { key: "/org/gnome/shell/extensions/panel-date-format/format", value: "'%Y-%m-%d %H:%M'" }
+    - { key: "/org/gnome/mutter/experimental-features", value: "['scale-monitor-framebuffer']" }
+    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-color", value: "'#171717'" }
+    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/foreground-color", value: "'#FFFFFF'" }
+    - { key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-colors", value: "false" }
+
+- name: Create Pictures directory
+  file:
+    path: "{{ user_home }}/Pictures"
+    state: directory
+
+- name: Copy Wallpaper
+  copy:
+    src: "{{ project_dir }}/assets/cosy_cabin.png"
+    dest: "{{ user_home }}/Pictures/cosy_cabin.png"
+    force: no

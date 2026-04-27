@@ -1,0 +1,5 @@
+---
+# Global variables
+username: "{{ lookup('env', 'USER') }}"
+user_home: "{{ lookup('env', 'HOME') }}"
+project_dir: "{{ playbook_dir }}"
