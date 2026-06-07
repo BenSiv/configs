@@ -23,6 +23,14 @@
     group: "{{ real_user }}"
     mode: '0755'
 
+- name: Create Projects/external directory
+  file:
+    path: "{{ user_home }}/Projects/external"
+    state: directory
+    owner: "{{ real_user }}"
+    group: "{{ real_user }}"
+    mode: '0755'
+
 - name: Ensure Projects subdirectories are owned by user
   file:
     path: "{{ user_home }}/Projects"
@@ -33,7 +41,7 @@
   become: yes
   become_user: root
 
-- name: Clone Repositories
+- name: Clone Personal Repositories
   git:
     repo: "{{ item }}"
     dest: "{{ user_home }}/Projects/{{ item | basename | splitext | first }}"
@@ -44,10 +52,20 @@
   loop:
     - "https://github.com/BenSiv/configs.git"
     - "https://github.com/BenSiv/lua-utils.git"
-    - "https://github.com/BenSiv/lua-automations.git"
+    - "https://github.com/BenSiv/automations.git"
     - "https://github.com/BenSiv/brain-ex.git"
     - "https://github.com/BenSiv/luam.git"
     - "https://github.com/BenSiv/luametry.git"
+
+- name: Clone External Repositories
+  git:
+    repo: "{{ item }}"
+    dest: "{{ user_home }}/Projects/external/{{ item | basename | splitext | first }}"
+    recursive: yes
+    update: no
+  become: yes
+  become_user: "{{ real_user }}"
+  loop:
     - "https://github.com/elalish/manifold.git"
 
 - name: Symlink Dotfiles
@@ -110,3 +128,14 @@
       loop:
         - { src: 'settings.json', dest: 'settings.json' }
         - { src: 'keys.json', dest: 'keybindings.json' }
+
+- name: Symlink Antigravity Extensions
+  file:
+    src: "{{ user_home }}/Projects/luam/dev/vscode"
+    dest: "{{ user_home }}/.antigravity/extensions/luam-lang"
+    state: link
+    owner: "{{ real_user }}"
+    group: "{{ real_user }}"
+    force: yes
+  become: yes
+  become_user: root

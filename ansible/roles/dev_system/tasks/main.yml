@@ -1,4 +1,12 @@
 ---
+- name: Remove old manual Antigravity installation (cleanup)
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /opt/antigravity
+    - /usr/local/bin/antigravity
+
 - name: Install Development Packages
   apt:
     name:
@@ -29,30 +37,28 @@
     - lua-yaml
     - dkjson
 
-- name: Create Antigravity directory
+- name: Ensure APT keyrings directory exists
   file:
-    path: /opt/antigravity
+    path: /etc/apt/keyrings
     state: directory
     mode: '0755'
 
-- name: Download and Unarchive Antigravity
-  unarchive:
-    src: "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.13.3-4533425205018624/linux-x64/Antigravity.tar.gz"
-    dest: /opt/antigravity
-    remote_src: yes
-    extra_opts: [--strip-components=1]
-    creates: /opt/antigravity/antigravity
-  ignore_errors: yes
+- name: Download and dearmor Antigravity GPG key
+  shell: |
+    set -o pipefail
+    curl -fsSL {{ antigravity_repo_key_url }} | gpg --dearmor --batch --yes -o {{ antigravity_keyring_path }}
+  args:
+    executable: /bin/bash
+    creates: "{{ antigravity_keyring_path }}"
 
-- name: Symlink Antigravity binary
-  file:
-    src: /opt/antigravity/antigravity
-    dest: /usr/local/bin/antigravity
-    state: link
+- name: Add Antigravity APT repository
+  apt_repository:
+    repo: "{{ antigravity_repo_url }}"
+    state: present
+    filename: antigravity
 
-- name: Create Antigravity Desktop Entry
-  template:
-    src: antigravity.desktop.j2
-    dest: /usr/share/applications/antigravity.desktop
-  vars:
-    icon_path: /opt/antigravity/resources/app/resources/linux/code.png
+- name: Install Antigravity
+  apt:
+    name: antigravity
+    state: latest
+    update_cache: yes

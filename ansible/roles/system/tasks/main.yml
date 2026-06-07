@@ -61,6 +61,7 @@
     src: /usr/bin/fdfind
     dest: /usr/bin/fd
     state: link
+    force: yes
   ignore_errors: yes
 
 - name: Set timezone to America/Los_Angeles

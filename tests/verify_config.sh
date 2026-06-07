@@ -5,7 +5,7 @@ echo "Verifying Desktop Configuration..."
 
 # 1. Verify Aliases
 echo "Checking aliases..."
-if grep -q "lua \$HOME/Projects/lua-automations/readdir.lua" ~/.bash_aliases; then
+if grep -q "luam \$HOME/Projects/automations/src/readdir.lua" ~/.bash_aliases; then
     echo "PASS: 'rd' alias points to Projects directory."
 else
     echo "FAIL: 'rd' alias incorrect."

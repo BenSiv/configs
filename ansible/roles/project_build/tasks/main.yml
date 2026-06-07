@@ -2,23 +2,42 @@
 - name: Update Manifold submodules
   command:
     cmd: "git submodule update --init --recursive"
-    chdir: "{{ user_home }}/Projects/manifold"
+    chdir: "{{ user_home }}/Projects/external/manifold"
   become: yes
   become_user: "{{ real_user }}"
   ignore_errors: yes
+
+- name: Check if Manifold CMake cache is stale
+  shell: |
+    [ -f {{ user_home }}/Projects/external/manifold/build/CMakeCache.txt ] && \
+    grep -q "manifold_SOURCE_DIR:STATIC={{ user_home }}/Projects/external/manifold" {{ user_home }}/Projects/external/manifold/build/CMakeCache.txt
+  register: cmake_cache_check
+  failed_when: false
+  changed_when: false
+  check_mode: no
+  become: yes
+  become_user: "{{ real_user }}"
+
+- name: Remove stale Manifold build directory
+  file:
+    path: "{{ user_home }}/Projects/external/manifold/build"
+    state: absent
+  when: cmake_cache_check.rc != 0
+  become: yes
+  become_user: "{{ real_user }}"
 
 - name: Build Manifold
   block:
     - name: Configure Manifold with CMake
       command:
-        cmd: "cmake -S {{ user_home }}/Projects/manifold -B {{ user_home }}/Projects/manifold/build -DCMAKE_BUILD_TYPE=Release"
-        creates: "{{ user_home }}/Projects/manifold/build/Makefile"
+        cmd: "cmake -S {{ user_home }}/Projects/external/manifold -B {{ user_home }}/Projects/external/manifold/build -DCMAKE_BUILD_TYPE=Release"
+        creates: "{{ user_home }}/Projects/external/manifold/build/Makefile"
       become: yes
       become_user: "{{ real_user }}"
 
     - name: Build Manifold
       command:
-        cmd: "cmake --build {{ user_home }}/Projects/manifold/build -j{{ ansible_facts['processor_vcpus'] | default(2) }}"
+        cmd: "cmake --build {{ user_home }}/Projects/external/manifold/build -j{{ ansible_facts['processor_vcpus'] | default(2) }}"
       become: yes
       become_user: "{{ real_user }}"
 
@@ -45,7 +64,7 @@
     creates: "{{ user_home }}/Projects/luametry/bin/luametry"
   environment:
     LUAM_DIR: "{{ user_home }}/Projects/luam"
-    MANIFOLD_DIR: "{{ user_home }}/Projects/manifold"
+    MANIFOLD_DIR: "{{ user_home }}/Projects/external/manifold"
     PATH: "{{ user_home }}/Projects/luam/bin:{{ ansible_facts['env']['PATH'] }}"
   become: yes
   become_user: "{{ real_user }}"
@@ -55,6 +74,7 @@
     src: "{{ user_home }}/Projects/{{ item.project }}/bin/{{ item.binary }}"
     dest: "/usr/local/bin/{{ item.link }}"
     state: link
+    force: yes
   loop:
     - { project: 'luam', binary: 'luam', link: 'luam' }
     - { project: 'brain-ex', binary: 'brex', link: 'brex' }

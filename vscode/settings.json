@@ -36,7 +36,8 @@
     "breadcrumbs.enabled": false,
     // ───── Files ─────
     "files.associations": {
-        "*.bats": "shellscript"
+        "*.bats": "shellscript",
+        "*.lua": "luam"
     },
     // ───── Terminal ─────
     "terminal.integrated.copyOnSelection": true,

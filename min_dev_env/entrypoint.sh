@@ -5,12 +5,21 @@ if [ ! -f "/data/.initialized" ]; then
 
     cat /root/configs/bash/bashrc.sh >> /root/.bashrc
 
+    # Build and install luam
+    echo "Compiling luam..."
+    cd /root/luam
+    bash bld/build_lang.sh
+    cp bin/luam /usr/local/bin/
+    cp bin/luamc /usr/local/bin/
+    chmod +x /usr/local/bin/luam /usr/local/bin/luamc
+    echo "luam installed to /usr/local/bin"
+
     my_bash_aliases='
     alias readdir="ls --format=single-column --almost-all --group-directories-first"
-    alias rd="lua /root/lua-automations/readdir.lua"
-    alias edit="lua /root/lua-automations/edit.lua"
-    alias find="lua /root/lua-automations/find.lua"
-    alias repo="lua /root/lua-automations/repo.lua"
+    alias rd="luam /root/automations/src/readdir.lua"
+    alias edit="luam /root/automations/src/edit.lua"
+    alias find="luam /root/automations/src/find.lua"
+    alias repo="luam /root/automations/src/repo.lua"
     alias sqlite=sqlite3
     '
     echo "$my_bash_aliases" > ~/.bash_aliases

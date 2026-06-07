@@ -9,7 +9,7 @@ if [ -f ~/.path_addons ]; then
     . ~/.path_addons
 fi
 
-export LUA_PATH="$HOME/Projects/lua-utils/src/?.lua;;"
+export LUA_PATH="$HOME/Projects/luam/lib/?.lua;;"
 # export LUA_INIT="require('utils').using('utils')"
 export TERM=xterm-256color
 
@@ -17,3 +17,12 @@ export PATH=$PATH:/home/bensiv/Projects/Odin
 # >>> xmake >>>
 test -f "/home/bensiv/.xmake/profile" && source "/home/bensiv/.xmake/profile"
 # <<< xmake <<<
+
+# Android SDK for Aura
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+. "$HOME/.cargo/env"
+
+# Flutter SDK
+export PATH="$PATH:$HOME/development/flutter/bin"
