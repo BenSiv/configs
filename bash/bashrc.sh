@@ -9,20 +9,26 @@ if [ -f ~/.path_addons ]; then
     . ~/.path_addons
 fi
 
-export LUA_PATH="$HOME/Projects/luam/lib/?.lua;;"
+export LUA_PATH="$HOME/projects/luam/lib/?.lua;$HOME/projects/lua-utils/src/?.lua;;"
 # export LUA_INIT="require('utils').using('utils')"
 export TERM=xterm-256color
 
-export PATH=$PATH:/home/bensiv/Projects/Odin
+export PATH=$PATH:/home/bensiv/projects/Odin
 # >>> xmake >>>
 test -f "/home/bensiv/.xmake/profile" && source "/home/bensiv/.xmake/profile"
 # <<< xmake <<<
 
 # Android SDK for Aura
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-. "$HOME/.cargo/env"
+if [ -d "$HOME/Android/Sdk" ]; then
+    export ANDROID_HOME=$HOME/Android/Sdk
+    export PATH=$PATH:$ANDROID_HOME/emulator
+    export PATH=$PATH:$ANDROID_HOME/platform-tools
+fi
+
+# Safety check for Cargo environment
+[ -s "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # Flutter SDK
-export PATH="$PATH:$HOME/development/flutter/bin"
+if [ -d "$HOME/development/flutter/bin" ]; then
+    export PATH="$PATH:$HOME/development/flutter/bin"
+fi
