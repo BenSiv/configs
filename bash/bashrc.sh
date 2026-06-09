@@ -10,7 +10,7 @@ if [ -f ~/.path_addons ]; then
 fi
 
 export LUA_PATH="$HOME/projects/luam/lib/?.lua;$HOME/projects/lua-utils/src/?.lua;;"
-# export LUA_INIT="require('utils').using('utils')"
+export LUA_CPATH="$HOME/projects/luam/lib/?.so;$HOME/projects/luam/lib/?/?.so;;"
 export TERM=xterm-256color
 
 export PATH=$PATH:/home/bensiv/projects/Odin
