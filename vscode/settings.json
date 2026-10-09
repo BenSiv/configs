@@ -55,6 +55,11 @@
     "terminal.integrated.commandsToSkipShell": [
         "language-julia.interrupt"
     ],
+    // ───── Git ─────
+    // In VS Code terminals, git opens commit/merge messages in a VS Code tab
+    // (save and close it to finish), instead of micro, whose save/quit keys
+    // VS Code captures. Other terminals keep gitconfig's core.editor.
+    "git.terminalGitEditor": true,
     // ───── Notebook ─────
     "notebook.globalToolbar": false,
     "notebook.consolidatedOutputButton": false,
