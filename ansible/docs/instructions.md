@@ -18,11 +18,11 @@ The configuration is located in `configs/ansible`:
 - `install.sh`: One-click runner script with dependency checking.
 - `roles/`:
   - `system`: Core system packages, apt update, Quarto, Google Chrome, timezone, locale.
-  - `gnome_system`: Minimal desktop tools, bloatware cleanup, GIMP from Ubuntu APT, and snap apps where no package is available in the enabled APT repositories (VS Code, Android Studio, Zen Browser, OnlyOffice, Paint, WhatsApp).
-  - `dev_system`: Development tools, Lua 5.1/LuaRocks, Antigravity IDE snap, Ollama service, global npm AI CLI tools (@google/gemini-cli, @openai/codex, pi-coding-agent).
-  - `dotfiles`: Git global config, project checkouts, dotfile and IDE setting symlinks (Micro, Antigravity, Antigravity IDE, VS Code).
+  - `gnome_system`: Minimal desktop tools, bloatware cleanup, GIMP from Ubuntu APT, Antigravity as the IDE, and snap apps where no package is available in the enabled APT repositories (Android Studio, Zen Browser, OnlyOffice, Paint, WhatsApp).
+  - `dev_system`: Development tools, Lua 5.1/LuaRocks, and Antigravity IDE snap. It removes Ollama (including downloaded models) and the Gemini, Codex, and Pi CLI tools.
+  - `dotfiles`: Git global config, project checkouts, dotfile and IDE setting symlinks (Micro and Antigravity).
   - `gnome_user`: GNOME extensions, dconf settings, Ptyxis terminal scaling, and wallpaper.
-  - `dev_user`: GPG keys, password-store, and user-level CLI installers (Claude Code CLI `claude`).
+  - `dev_user`: GPG keys and password-store setup. It removes Claude Code and local state for Claude, Codex, Gemini, Ollama, and Pi.
   - `project_build`: Builds Manifold, luam, brain-ex, luametry, daat, and camopass; links binaries into `/usr/local/bin`.
 
 ## How to Run
@@ -35,3 +35,10 @@ To include private password-store checkout:
 ```bash
 ./install.sh --github-token <YOUR_GITHUB_TOKEN>
 ```
+
+To remove the retired AI tools, Node.js/npm, standalone VS Code, and their local data without
+rerunning the rest of the setup:
+```bash
+ansible-playbook -i inventory site.yml --tags clean_slate --ask-become-pass
+```
+This deletes Ollama models and local Claude, Codex, Gemini, and Pi state.

@@ -99,12 +99,28 @@
         - "{{ user_home }}/.config/Antigravity/User"
         - "{{ user_home }}/.config/Antigravity IDE"
         - "{{ user_home }}/.config/Antigravity IDE/User"
-        - "{{ user_home }}/.config/Code"
-        - "{{ user_home }}/.config/Code/User"
         - "{{ user_home }}/.antigravity"
         - "{{ user_home }}/.antigravity/extensions"
         - "{{ user_home }}/.antigravity-ide"
         - "{{ user_home }}/.antigravity-ide/extensions"
+
+    - name: Check managed VS Code settings links
+      stat:
+        path: "{{ user_home }}/.config/Code/User/{{ item }}"
+      loop:
+        - settings.json
+        - keybindings.json
+      register: vscode_settings_links
+
+    - name: Remove managed VS Code settings links
+      file:
+        path: "{{ item.stat.path }}"
+        state: absent
+      loop: "{{ vscode_settings_links.results }}"
+      when: item.stat.islnk
+      tags:
+        - always
+        - clean_slate
 
     - name: Symlink IDE Settings
       file:
@@ -119,8 +135,6 @@
         - { dest_dir: ".config/Antigravity/User", src: 'keys.json', dest_file: 'keybindings.json' }
         - { dest_dir: ".config/Antigravity IDE/User", src: 'settings.json', dest_file: 'settings.json' }
         - { dest_dir: ".config/Antigravity IDE/User", src: 'keys.json', dest_file: 'keybindings.json' }
-        - { dest_dir: ".config/Code/User", src: 'settings.json', dest_file: 'settings.json' }
-        - { dest_dir: ".config/Code/User", src: 'keys.json', dest_file: 'keybindings.json' }
 
     - name: Symlink IDE Extensions
       file:

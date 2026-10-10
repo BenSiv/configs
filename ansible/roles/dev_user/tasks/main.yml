@@ -33,7 +33,18 @@
     state: directory
     mode: '0755'
 
-- name: Install Claude Code CLI
-  shell: "curl -fsSL https://claude.ai/install.sh | bash"
-  args:
-    creates: "{{ user_home }}/.local/bin/claude"
+- name: Remove standalone AI CLI tools and local data
+  file:
+    path: "{{ user_home }}/{{ item }}"
+    state: absent
+  loop:
+    - .claude
+    - .claude.json
+    - .codex
+    - .gemini
+    - .local/bin/claude
+    - .local/share/claude
+    - .ollama
+    - .pi
+  tags:
+    - clean_slate
