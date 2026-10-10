@@ -13,25 +13,29 @@ if [ ! -d "$PROJECTS_DIR" ]; then
 fi
 
 # 0. Ensure manifold dependency (needed for luametry)
-if [ ! -d "$PROJECTS_DIR/manifold" ]; then
-    echo "Cloning manifold..."
-    git clone --recursive https://github.com/elalish/manifold.git "$PROJECTS_DIR/manifold"
+if [ -d "$PROJECTS_DIR/external/manifold" ]; then
+    MANIFOLD_DIR="$PROJECTS_DIR/external/manifold"
+else
+    MANIFOLD_DIR="$PROJECTS_DIR/manifold"
 fi
 
-git -C "$PROJECTS_DIR/manifold" submodule update --init --recursive
+if [ ! -d "$MANIFOLD_DIR" ]; then
+    echo "Cloning manifold..."
+    git clone --recursive https://github.com/elalish/manifold.git "$MANIFOLD_DIR"
+fi
 
-if [ ! -d "$PROJECTS_DIR/manifold/build" ]; then
+git -C "$MANIFOLD_DIR" submodule update --init --recursive
+
+if [ ! -d "$MANIFOLD_DIR/build" ]; then
     echo "Building manifold..."
-    cmake -S "$PROJECTS_DIR/manifold" -B "$PROJECTS_DIR/manifold/build" -DCMAKE_BUILD_TYPE=Release
-    cmake --build "$PROJECTS_DIR/manifold/build" -j"$(nproc)"
+    cmake -S "$MANIFOLD_DIR" -B "$MANIFOLD_DIR/build" -DCMAKE_BUILD_TYPE=Release
+    cmake --build "$MANIFOLD_DIR/build" -j"$(nproc)"
 fi
 
 # 1. Build luam
 echo "Building luam..."
 cd "$PROJECTS_DIR/luam"
-# Clean and build core
 bash bld/build_lang.sh
-# Build libraries (needed for other projects)
 bash bld/build_libs.sh
 
 # 2. Build brain-ex
@@ -43,16 +47,33 @@ bash bld/build.sh
 echo "Building luametry..."
 cd "$PROJECTS_DIR/luametry"
 export LUAM_DIR="$PROJECTS_DIR/luam"
-export MANIFOLD_DIR="$PROJECTS_DIR/manifold"
+export MANIFOLD_DIR="$MANIFOLD_DIR"
 bash bld/build.sh
 
-# 4. Install binaries
+# 4. Build daat
+if [ -d "$PROJECTS_DIR/daat" ]; then
+    echo "Building daat..."
+    cd "$PROJECTS_DIR/daat"
+    export LUAM_DIR="$PROJECTS_DIR/luam"
+    bash bld/build.sh
+fi
+
+# 5. Build camopass
+if [ -d "$PROJECTS_DIR/camopass" ]; then
+    echo "Building camopass..."
+    cd "$PROJECTS_DIR/camopass"
+    export LUAM_DIR="$PROJECTS_DIR/luam"
+    bash bld/build.sh
+fi
+
+# 6. Install binaries
 echo "Installing binaries to /usr/local/bin..."
-# Remove first to avoid "Text file busy" error when binary is running
-rm -f /usr/local/bin/luam /usr/local/bin/brex /usr/local/bin/luametry
-# Copy new binaries
+rm -f /usr/local/bin/luam /usr/local/bin/luamc /usr/local/bin/brex /usr/local/bin/luametry /usr/local/bin/daat /usr/local/bin/camopass
 cp "$PROJECTS_DIR/luam/bin/luam" /usr/local/bin/luam
+[ -f "$PROJECTS_DIR/luam/bin/luamc" ] && cp "$PROJECTS_DIR/luam/bin/luamc" /usr/local/bin/luamc
 cp "$PROJECTS_DIR/brain-ex/bin/brex" /usr/local/bin/brex
 cp "$PROJECTS_DIR/luametry/bin/luametry" /usr/local/bin/luametry
+[ -f "$PROJECTS_DIR/daat/bin/daat" ] && cp "$PROJECTS_DIR/daat/bin/daat" /usr/local/bin/daat
+[ -f "$PROJECTS_DIR/camopass/bin/camopass" ] && cp "$PROJECTS_DIR/camopass/bin/camopass" /usr/local/bin/camopass
 
 echo "Installation complete!"

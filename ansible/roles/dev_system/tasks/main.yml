@@ -37,28 +37,28 @@
     - lua-yaml
     - dkjson
 
-- name: Ensure APT keyrings directory exists
-  file:
-    path: /etc/apt/keyrings
-    state: directory
-    mode: '0755'
-
-- name: Download and dearmor Antigravity GPG key
-  shell: |
-    set -o pipefail
-    curl -fsSL {{ antigravity_repo_key_url }} | gpg --dearmor --batch --yes -o {{ antigravity_keyring_path }}
-  args:
-    executable: /bin/bash
-    creates: "{{ antigravity_keyring_path }}"
-
-- name: Add Antigravity APT repository
-  apt_repository:
-    repo: "{{ antigravity_repo_url }}"
+- name: Install Antigravity IDE snap
+  community.general.snap:
+    name: antigravity-ide-snap
+    classic: yes
     state: present
-    filename: antigravity
 
-- name: Install Antigravity
-  apt:
-    name: antigravity
-    state: latest
-    update_cache: yes
+- name: Check if Ollama is installed
+  command: which ollama
+  register: ollama_check
+  failed_when: false
+  changed_when: false
+
+- name: Install Ollama
+  shell: curl -fsSL https://ollama.com/install.sh | sh
+  when: ollama_check.rc != 0
+
+- name: Install AI CLI tools globally via npm
+  community.general.npm:
+    name: "{{ item }}"
+    global: yes
+    state: present
+  loop:
+    - "@google/gemini-cli"
+    - "@openai/codex"
+    - "@mariozechner/pi-coding-agent"

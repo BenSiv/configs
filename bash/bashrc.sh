@@ -9,8 +9,8 @@ if [ -f ~/.path_addons ]; then
     . ~/.path_addons
 fi
 
-export LUA_PATH="$HOME/projects/luam/lib/?.lua;$HOME/projects/lua-utils/src/?.lua;;"
-export LUA_CPATH="$HOME/projects/luam/lib/?.so;$HOME/projects/luam/lib/?/?.so;;"
+export LUA_PATH="$HOME/Projects/luam/lib/?.lua;;"
+export LUA_CPATH="$HOME/Projects/luam/lib/?.so;$HOME/Projects/luam/lib/?/?.so;;"
 export TERM=xterm-256color
 
 export PATH=$PATH:/home/bensiv/projects/Odin
@@ -32,3 +32,6 @@ fi
 if [ -d "$HOME/development/flutter/bin" ]; then
     export PATH="$PATH:$HOME/development/flutter/bin"
 fi
+
+
+export PATH="$HOME/.local/bin:$PATH"

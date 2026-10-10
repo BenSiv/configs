@@ -25,6 +25,11 @@
       - cmake
       - libreadline-dev
       - libsqlite3-dev
+      - podman
+      - nodejs
+      - npm
+      - keepassxc-full
+      - vlc
     state: present
 
 - name: Install Quarto

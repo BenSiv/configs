@@ -75,6 +75,7 @@
     "julia.execution.resultType": "REPL",
     // Chat
     "chat.commandCenter.enabled": false,
+    "chat.viewSessions.orientation": "stacked",
     // Dev Containers / Podman
     "dev.containers.dockerPath": "podman",
     "dev.containers.dockerComposePath": "podman",

@@ -26,3 +26,14 @@
     recursive: yes
     update: no
   when: github_token is defined and github_token != ''
+
+- name: Ensure ~/.local/bin exists
+  file:
+    path: "{{ user_home }}/.local/bin"
+    state: directory
+    mode: '0755'
+
+- name: Install Claude Code CLI
+  shell: "curl -fsSL https://claude.ai/install.sh | bash"
+  args:
+    creates: "{{ user_home }}/.local/bin/claude"

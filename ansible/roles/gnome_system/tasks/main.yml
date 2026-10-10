@@ -1,4 +1,9 @@
 ---
+- name: Remove GIMP Snap in favor of the Ubuntu package
+  community.general.snap:
+    name: gimp
+    state: absent
+
 - name: Install GNOME Tools
   apt:
     name:
@@ -7,6 +12,7 @@
       - dconf-cli
       - pipx
       - gnome-shell-extension-manager
+      - gimp
     state: present
 
 - name: Remove Bloatware
@@ -40,3 +46,27 @@
     name: firefox
     state: absent
   ignore_errors: yes
+
+- name: Install Classic Desktop Applications via Snap
+  community.general.snap:
+    name: "{{ item }}"
+    classic: yes
+    state: present
+  loop:
+    - code
+    - android-studio
+
+- name: Install Zen Browser via Snap
+  community.general.snap:
+    name: zen-browser-snap
+    channel: candidate
+    state: present
+
+- name: Install Standard Desktop Applications via Snap
+  community.general.snap:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - onlyoffice-desktopeditors
+    - paint
+    - whatsapp-linux-app

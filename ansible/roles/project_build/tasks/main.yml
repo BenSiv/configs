@@ -69,6 +69,26 @@
   become: yes
   become_user: "{{ real_user }}"
 
+- name: Build daat
+  shell:
+    cmd: "bash bld/build.sh"
+    chdir: "{{ user_home }}/Projects/daat"
+    creates: "{{ user_home }}/Projects/daat/bin/daat"
+  environment:
+    LUAM_DIR: "{{ user_home }}/Projects/luam"
+  become: yes
+  become_user: "{{ real_user }}"
+
+- name: Build camopass
+  shell:
+    cmd: "bash bld/build.sh"
+    chdir: "{{ user_home }}/Projects/camopass"
+    creates: "{{ user_home }}/Projects/camopass/bin/camopass"
+  environment:
+    LUAM_DIR: "{{ user_home }}/Projects/luam"
+  become: yes
+  become_user: "{{ real_user }}"
+
 - name: Install Project Binaries
   file:
     src: "{{ user_home }}/Projects/{{ item.project }}/bin/{{ item.binary }}"
@@ -77,5 +97,8 @@
     force: yes
   loop:
     - { project: 'luam', binary: 'luam', link: 'luam' }
+    - { project: 'luam', binary: 'luamc', link: 'luamc' }
     - { project: 'brain-ex', binary: 'brex', link: 'brex' }
     - { project: 'luametry', binary: 'luametry', link: 'luametry' }
+    - { project: 'daat', binary: 'daat', link: 'daat' }
+    - { project: 'camopass', binary: 'camopass', link: 'camopass' }
