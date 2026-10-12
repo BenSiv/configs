@@ -2,6 +2,9 @@
 
 Complete Ansible configuration to provision and maintain your Ubuntu development environment.
 
+> Being replaced by [`machine/`](../../machine/README.md), a declarative luam tool that checks the
+> machine before changing it. Its README lists what is still only here.
+
 ## Prerequisites
 1. **Operating System**: Ubuntu 26.04 LTS Desktop (or newer).
 2. **Git**: Ensure `git` is installed (`sudo apt install git`).
