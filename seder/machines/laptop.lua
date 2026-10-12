@@ -1,7 +1,7 @@
--- Ben's laptop (Ubuntu desktop). Bundles are listed in apply order;
+-- Ben's laptop (Debian stable, GNOME). Bundles are listed in apply order;
 -- within a run, all removals happen first, then all additions.
 return {
-    requires_seder = "0.3.0",
+    requires_seder = "0.4.0",
     vars = {
         projects = "~/Projects",
         configs = "${projects}/configs",
@@ -10,5 +10,5 @@ return {
         -- connected over USB (MTP).
         gpg_keys = "/run/user/${uid}/gvfs/mtp:host=Sony_XQ-FE72_HQ65991561/Internal shared storage/Passtore",
     },
-    bundles = {"base", "gnome", "dev", "dotfiles", "builds", "cleanup", "secrets"},
+    bundles = {"base", "gnome", "debian", "dev", "dotfiles", "builds", "cleanup", "secrets"},
 }

@@ -1,5 +1,7 @@
--- Desktop: GNOME tools, desktop apps, the stock apps we don't use, and
--- GNOME settings, extensions and wallpaper. dconf and the extension tools
+-- Desktop on any distribution: GNOME tools, the stock apps we don't use,
+-- and GNOME settings, extensions and wallpaper. Distribution-specific
+-- parts (desktop metapackage, app sources, app grid) are in debian.lua and
+-- ubuntu.lua. dconf and the extension tools
 -- talk to the logged-in desktop session over its D-Bus; seder's dconf
 -- provider finds that bus itself, the extension commands get it here.
 
@@ -10,26 +12,17 @@ session = {DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${uid}/bus"}
 return {
     apt = {
         present = {
-            "ubuntu-desktop-minimal", "gnome-tweaks", "dconf-cli", "pipx",
-            "gnome-shell-extension-manager", "gimp",
+            "gnome-tweaks", "dconf-cli", "pipx", "gnome-shell-extension-manager",
+            "gimp", "ptyxis",
         },
         absent = {
-            "aisleriot", "gnome-mahjongg", "gnome-mines", "gnome-sudoku", "firefox",
+            "aisleriot", "gnome-mahjongg", "gnome-mines", "gnome-sudoku",
             "libreoffice-core", "libreoffice-common", "libreoffice-calc",
             "libreoffice-draw", "libreoffice-gnome", "libreoffice-gtk3",
             "libreoffice-impress", "libreoffice-math", "libreoffice-writer",
             "rhythmbox", "shotwell", "thunderbird", "transmission-common",
             "transmission-gtk", "remmina",
         },
-    },
-    snap = {
-        present = {
-            {name = "android-studio", classic = true},
-            {name = "zen-browser-snap", channel = "candidate"},
-            "onlyoffice-desktopeditors", "paint", "whatsapp-linux-app",
-        },
-        -- gimp comes from apt instead; code is replaced by Antigravity.
-        absent = {"gimp", "firefox", "code"},
     },
     path = {
         present = {"~/.local/bin", "~/Pictures"},
@@ -86,8 +79,6 @@ return {
              value = "['org.gnome.Settings.desktop', 'gnome-session-properties.desktop', 'software-properties-gtk.desktop', 'nm-connection-editor.desktop', 'org.gnome.Shell.Extensions.desktop', 'gnome-language-selector.desktop', 'update-manager.desktop', 'software-properties-drivers.desktop', 'software-properties-livepatch.desktop', 'im-config.desktop', 'ibus-setup-table.desktop', 'org.freedesktop.IBus.Setup.desktop', 'gnome-initial-setup.desktop', 'ca.desrt.dconf-editor.desktop', 'firmware-updater_firmware-updater.desktop']"},
             {key = "/org/gnome/desktop/app-folders/folders/System/name",
              value = "'System'"},
-            {key = "/org/gnome/shell/app-picker-layout",
-             value = "[{'org.gnome.Ptyxis.desktop': <{'position': <0>}>, 'google-chrome.desktop': <{'position': <1>}>, 'zen-browser-snap_zen-browser.desktop': <{'position': <2>}>, 'antigravity.desktop': <{'position': <3>}>, 'micro.desktop': <{'position': <4>}>, 'whatsapp-linux-app_whatsapp-linux-app.desktop': <{'position': <5>}>, 'onlyoffice-desktopeditors_onlyoffice-desktopeditors.desktop': <{'position': <6>}>, 'org.gnome.Nautilus.desktop': <{'position': <7>}>, 'snap-store_snap-store.desktop': <{'position': <8>}>}, {'System': <{'position': <0>}>, 'Utilities': <{'position': <1>}>, 'org.gimp.GIMP.desktop': <{'position': <2>}>, 'vlc.desktop': <{'position': <3>}>, 'org.keepassxc.KeePassXC.desktop': <{'position': <4>}>, 'android-studio_android-studio.desktop': <{'position': <5>}>}]"},
             {key = "/org/gnome/desktop/interface/color-scheme",
              value = "'prefer-dark'"},
             {key = "/org/gnome/desktop/interface/accent-color",
@@ -116,18 +107,8 @@ return {
              value = "true"},
             {key = "/org/gnome/desktop/interface/show-battery-percentage",
              value = "true"},
-            {key = "/org/gnome/shell/extensions/dash-to-dock/dock-position",
-             value = "'BOTTOM'"},
-            {key = "/org/gnome/shell/extensions/dash-to-dock/extend-height",
-             value = "false"},
-            {key = "/org/gnome/shell/extensions/dash-to-dock/dock-fixed",
-             value = "false"},
             {key = "/org/gnome/shell/favorite-apps",
              value = "@as []"},
-            {key = "/org/gnome/shell/extensions/dash-to-dock/show-trash",
-             value = "false"},
-            {key = "/org/gnome/shell/extensions/ding/show-home",
-             value = "false"},
             {key = "/org/gnome/shell/extensions/panel-date-format/format",
              value = "'%Y-%m-%d %H:%M'"},
             {key = "/org/gnome/mutter/experimental-features",

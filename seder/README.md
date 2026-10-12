@@ -7,14 +7,18 @@ directory is only data, the way lims is only data for daat. It replaces
 
 | Path | What |
 |---|---|
-| `machines/<name>.lua` | One computer: its variables and the bundles it uses, in apply order |
-| `bundles/<topic>.lua` | What should be present or absent, by provider (apt, snap, link, ...) |
+| `machines/laptop.lua` | The laptop on Debian stable with GNOME |
+| `machines/laptop-ubuntu.lua` | The same laptop on Ubuntu, until it is reinstalled; then delete it |
+| `bundles/<topic>.lua` | What should be present or absent, by provider. `gnome`, `dev`, `builds`, ... are shared; `debian` and `ubuntu` hold what differs (desktop metapackage, Flatpak vs snap apps, app grid) |
 | `install.sh` | Bootstrap for a fresh install |
 
 Git settings come from `../git/gitconfig.toml` and the wallpaper from
 `../gnome/cosy_cabin.png`, both linked into place by seder.
 
-## Fresh install
+## Fresh install (Debian)
+
+In the Debian installer, leave the root password empty (your user then gets
+sudo) and pick the GNOME desktop. Then, from a terminal in the desktop:
 
 ```sh
 sudo apt update && sudo apt install -y git
@@ -22,9 +26,10 @@ git clone https://github.com/BenSiv/configs.git ~/Projects/configs
 ~/Projects/configs/seder/install.sh            # machine "laptop"
 ```
 
-It installs `build-essential libreadline-dev`, clones and builds luam
-and seder into `~/Projects`, then runs `seder apply machines/laptop.lua`,
-which shows the plan and asks before changing anything.
+It installs `build-essential libreadline-dev`, clones and builds luam and
+seder into `~/Projects`, then runs `seder apply machines/laptop.lua --pull`,
+which shows the plan and asks before changing anything. On the laptop while
+it still runs Ubuntu: `install.sh laptop-ubuntu`.
 
 ## Afterwards
 

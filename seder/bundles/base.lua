@@ -4,7 +4,7 @@ return {
         present = {
             "curl", "wget", "git", "make", "build-essential", "cmake",
             "fd-find", "ripgrep", "jq", "tree", "micro", "sqlite3",
-            "pandoc", "texlive-xetex", "pass", "gnupg",
+            "pandoc", "texlive-xetex", "pass", "gnupg", "locales",
             "libreadline-dev", "libsqlite3-dev", "podman", "keepassxc-full", "vlc",
             {name = "quarto",
              url = "https://github.com/quarto-dev/quarto-cli/releases/download/v1.4.550/quarto-1.4.550-linux-amd64.deb"},

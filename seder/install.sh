@@ -42,6 +42,13 @@ if [ ! -f "machines/$MACHINE.lua" ]; then
     exit 1
 fi
 
+# Debian gives the first user sudo only when the installer's root
+# password was left empty.
+if ! sudo -v; then
+    echo "$USER can't use sudo. As root: usermod -aG sudo $USER, then log in again." >&2
+    exit 1
+fi
+
 missing=()
 for pkg in git build-essential libreadline-dev; do
     if ! dpkg-query -W -f='${db:Status-Abbrev}' "$pkg" 2>/dev/null | grep -q '^ii'; then
