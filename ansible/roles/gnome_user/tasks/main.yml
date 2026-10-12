@@ -114,6 +114,6 @@
 
 - name: Copy Wallpaper
   copy:
-    src: cosy_cabin.png
+    src: "{{ playbook_dir }}/../../gnome/cosy_cabin.png"
     dest: "{{ user_home }}/Pictures/cosy_cabin.png"
     force: no

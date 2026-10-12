@@ -1,6 +1,4 @@
 -- Project checkouts and the dotfile/IDE symlinks into this repo.
--- Not ported yet (still in ansible/roles/dotfiles): git global config.
--- The private password store needs a token; still in ansible/roles/dev_user.
 return {
     path = {
         present = {
@@ -26,6 +24,7 @@ return {
         present = {
             {path = "~/.bashrc", target = "${configs}/bash/bashrc.sh"},
             {path = "~/.bash_aliases", target = "${configs}/bash/bash_aliases.sh"},
+            {path = "~/.gitconfig", target = "${configs}/git/gitconfig.toml"},
             {path = "~/.config/micro", target = "${configs}/micro"},
             {path = "~/.config/Antigravity/User/settings.json", target = "${configs}/vscode/settings.json"},
             {path = "~/.config/Antigravity/User/keybindings.json", target = "${configs}/vscode/keys.json"},
