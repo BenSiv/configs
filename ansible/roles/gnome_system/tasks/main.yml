@@ -3,6 +3,7 @@
   community.general.snap:
     name: gimp
     state: absent
+  when: "'gimp' in installed_snaps"
 
 - name: Install GNOME Tools
   apt:
@@ -17,7 +18,12 @@
 
 - name: Remove Bloatware
   apt:
-    name:
+    name: "{{ bloatware | select('in', ansible_facts.packages) | list }}"
+    state: absent
+    purge: yes
+  when: bloatware | select('in', ansible_facts.packages) | list | length > 0
+  vars:
+    bloatware:
       - aisleriot
       - gnome-mahjongg
       - gnome-mines
@@ -38,19 +44,18 @@
       - transmission-common
       - transmission-gtk
       - remmina
-    state: absent
-    purge: yes
 
 - name: Remove Firefox snap
   community.general.snap:
     name: firefox
     state: absent
-  ignore_errors: yes
+  when: "'firefox' in installed_snaps"
 
 - name: Remove standalone VS Code snap
   community.general.snap:
     name: code
     state: absent
+  when: "'code' in installed_snaps"
   tags:
     - always
     - clean_slate

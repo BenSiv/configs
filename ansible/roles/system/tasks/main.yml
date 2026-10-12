@@ -1,4 +1,42 @@
 ---
+# Facts about what is already on the machine. Cleanup tasks in later roles
+# use these so they only remove things that are actually installed.
+- name: Gather installed apt packages
+  package_facts:
+    manager: apt
+  tags:
+    - always
+
+- name: Wait for snapd to finish seeding
+  command: snap wait system seed.loaded
+  changed_when: false
+  failed_when: false
+  tags:
+    - always
+
+- name: List installed snaps
+  command: snap list
+  register: snap_list
+  changed_when: false
+  failed_when: false
+  tags:
+    - always
+
+- name: Check for npm
+  shell: command -v npm
+  register: npm_check
+  changed_when: false
+  failed_when: false
+  tags:
+    - always
+
+- name: Record installed snaps and npm presence
+  set_fact:
+    installed_snaps: "{{ (snap_list.stdout_lines | default([]))[1:] | map('split') | map('first') | list }}"
+    npm_installed: "{{ npm_check.rc == 0 }}"
+  tags:
+    - always
+
 - name: Update apt cache
   apt:
     update_cache: yes

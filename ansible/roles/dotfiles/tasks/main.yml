@@ -117,7 +117,7 @@
         path: "{{ item.stat.path }}"
         state: absent
       loop: "{{ vscode_settings_links.results }}"
-      when: item.stat.islnk
+      when: item.stat.islnk | default(false)
       tags:
         - always
         - clean_slate

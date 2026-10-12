@@ -59,15 +59,19 @@
     - "@google/gemini-cli"
     - "@openai/codex"
     - "@mariozechner/pi-coding-agent"
+  when: npm_installed
   tags:
     - clean_slate
 
 - name: Remove Node.js and npm packages
   apt:
-    name:
+    name: "{{ node_packages | select('in', ansible_facts.packages) | list }}"
+    state: absent
+  when: node_packages | select('in', ansible_facts.packages) | list | length > 0
+  vars:
+    node_packages:
       - nodejs
       - npm
-    state: absent
   tags:
     - clean_slate
 
@@ -105,5 +109,6 @@
 - name: Reload systemd after removing Ollama
   systemd:
     daemon_reload: yes
+  when: ollama_service.stat.exists
   tags:
     - clean_slate

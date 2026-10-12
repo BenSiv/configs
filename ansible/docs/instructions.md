@@ -42,3 +42,7 @@ rerunning the rest of the setup:
 ansible-playbook -i inventory site.yml --tags clean_slate --ask-become-pass
 ```
 This deletes Ollama models and local Claude, Codex, Gemini, and Pi state.
+
+Cleanup tasks don't assume anything about the machine. The `system` role first records which apt
+packages and snaps are installed and whether `npm` exists, and each removal is skipped when its
+target is missing. A fresh install and an old machine run the same playbook.
