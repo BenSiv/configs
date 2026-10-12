@@ -2,6 +2,18 @@
 -- build runs only while its output is missing; delete the output (or
 -- rebuild by hand) to pick up new commits.
 return {
+    -- What the builds below compile or link against. luam's static
+    -- build (lib/static/build.lua) compiles daat's sqlite3, bcrypt,
+    -- hmac and mariadb modules from source, so it needs their headers.
+    apt = {
+        present = {
+            "libsqlite3-dev",   -- sqlite3
+            "libcrypt-dev",     -- bcrypt
+            "libssl-dev",       -- hmac (openssl/hmac.h, -lcrypto)
+            "libmariadb-dev",   -- mariadb; skipped with a warning when missing
+            "cmark-gfm",        -- daat renders documents with it at runtime
+        },
+    },
     run = {
         present = {
             {name = "manifold configure", dir = "${projects}/external/manifold",
