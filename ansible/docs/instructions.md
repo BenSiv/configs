@@ -2,8 +2,9 @@
 
 Complete Ansible configuration to provision and maintain your Ubuntu development environment.
 
-> Being replaced by [`machine/`](../../machine/README.md), a declarative luam tool that checks the
-> machine before changing it. Its README lists what is still only here.
+> Being replaced by [seder](https://github.com/BenSiv/seder), a declarative luam tool that checks
+> the machine before changing it. This repo's data for it is in [`seder/`](../../seder/README.md),
+> whose README lists what is still only here.
 
 ## Prerequisites
 1. **Operating System**: Ubuntu 26.04 LTS Desktop (or newer).

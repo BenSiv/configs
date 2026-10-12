@@ -10,13 +10,17 @@ return {
             {name = "manifold build", dir = "${projects}/external/manifold",
              cmd = "cmake --build build -j\"$(nproc)\"",
              creates = "${projects}/external/manifold/build/bindings/c/libmanifoldc.so"},
-            -- install.sh builds the interpreter itself to bootstrap.
+            -- install.sh builds the interpreter and seder itself to bootstrap.
             {name = "luam", dir = "${projects}/luam",
              cmd = "bash bld/build_lang.sh",
              creates = "${projects}/luam/bin/luam"},
             {name = "luam libs", dir = "${projects}/luam",
              cmd = "bash bld/build_libs.sh",
              creates = "${projects}/luam/lib/sqlite/lsqlite3.so"},
+            {name = "seder", dir = "${projects}/seder",
+             cmd = "bash bld/build.sh",
+             env = {LUAM_DIR = "${projects}/luam"},
+             creates = "${projects}/seder/bin/seder"},
             {name = "brain-ex", dir = "${projects}/brain-ex",
              cmd = "bash bld/build.sh",
              env = {LUAM_DIR = "${projects}/luam"},
@@ -39,6 +43,7 @@ return {
         present = {
             {path = "/usr/local/bin/luam", target = "${projects}/luam/bin/luam"},
             {path = "/usr/local/bin/luamc", target = "${projects}/luam/bin/luamc"},
+            {path = "/usr/local/bin/seder", target = "${projects}/seder/bin/seder"},
             {path = "/usr/local/bin/brex", target = "${projects}/brain-ex/bin/brex"},
             {path = "/usr/local/bin/luametry", target = "${projects}/luametry/bin/luametry"},
             {path = "/usr/local/bin/daat", target = "${projects}/daat/bin/daat"},
