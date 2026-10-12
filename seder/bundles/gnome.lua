@@ -1,6 +1,12 @@
 -- Desktop: GNOME tools, desktop apps, the stock apps we don't use, and
--- GNOME settings, extensions and wallpaper. Apply from a terminal inside
--- the desktop session: dconf and the extension tools talk to it.
+-- GNOME settings, extensions and wallpaper. dconf and the extension tools
+-- talk to the logged-in desktop session over its D-Bus; seder's dconf
+-- provider finds that bus itself, the extension commands get it here.
+
+-- The logged-in session's bus, for commands run from a terminal that
+-- lacks DBUS_SESSION_BUS_ADDRESS (ssh, a tmux started elsewhere).
+session = {DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${uid}/bus"}
+
 return {
     apt = {
         present = {
@@ -151,22 +157,28 @@ return {
              creates = "~/.local/bin/gnome-extensions-cli"},
             {name = "extension gestureImprovements@gestures",
              cmd = "~/.local/bin/gnome-extensions-cli install gestureImprovements@gestures",
-             creates = "~/.local/share/gnome-shell/extensions/gestureImprovements@gestures"},
+             creates = "~/.local/share/gnome-shell/extensions/gestureImprovements@gestures",
+             env = session},
             {name = "extension blur-my-shell@aunetx",
              cmd = "~/.local/bin/gnome-extensions-cli install blur-my-shell@aunetx",
-             creates = "~/.local/share/gnome-shell/extensions/blur-my-shell@aunetx"},
+             creates = "~/.local/share/gnome-shell/extensions/blur-my-shell@aunetx",
+             env = session},
             {name = "extension panel-date-format@keiii.github.com",
              cmd = "~/.local/bin/gnome-extensions-cli install panel-date-format@keiii.github.com",
-             creates = "~/.local/share/gnome-shell/extensions/panel-date-format@keiii.github.com"},
+             creates = "~/.local/share/gnome-shell/extensions/panel-date-format@keiii.github.com",
+             env = session},
             {name = "enable gestureImprovements@gestures",
              cmd = "gnome-extensions enable gestureImprovements@gestures",
-             unless = "gsettings get org.gnome.shell enabled-extensions | grep -qF \"'gestureImprovements@gestures'\""},
+             unless = "gsettings get org.gnome.shell enabled-extensions | grep -qF \"'gestureImprovements@gestures'\"",
+             env = session},
             {name = "enable blur-my-shell@aunetx",
              cmd = "gnome-extensions enable blur-my-shell@aunetx",
-             unless = "gsettings get org.gnome.shell enabled-extensions | grep -qF \"'blur-my-shell@aunetx'\""},
+             unless = "gsettings get org.gnome.shell enabled-extensions | grep -qF \"'blur-my-shell@aunetx'\"",
+             env = session},
             {name = "enable panel-date-format@keiii.github.com",
              cmd = "gnome-extensions enable panel-date-format@keiii.github.com",
-             unless = "gsettings get org.gnome.shell enabled-extensions | grep -qF \"'panel-date-format@keiii.github.com'\""},
+             unless = "gsettings get org.gnome.shell enabled-extensions | grep -qF \"'panel-date-format@keiii.github.com'\"",
+             env = session},
         },
     },
 }
