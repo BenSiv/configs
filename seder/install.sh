@@ -48,8 +48,8 @@ clone https://github.com/BenSiv/seder.git "$SEDER_DIR"
 if [ ! -f "$LUAM_DIR/obj/liblua.a" ] || [ ! -x "$LUAM_DIR/bin/luam" ]; then
     (cd "$LUAM_DIR" && bash bld/build_lang.sh)
 fi
-if [ ! -x "$SEDER_DIR/bin/seder" ]; then
-    (cd "$SEDER_DIR" && LUAM_DIR="$LUAM_DIR" bash bld/build.sh)
-fi
+# Always rebuilt (it takes a second), so a pulled seder is never run as
+# the binary from before the pull.
+(cd "$SEDER_DIR" && LUAM_DIR="$LUAM_DIR" bash bld/build.sh)
 
 exec "$SEDER_DIR/bin/seder" apply "machines/$MACHINE.lua" "$@"
