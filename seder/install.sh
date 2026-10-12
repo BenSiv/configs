@@ -6,7 +6,11 @@ set -euo pipefail
 # `seder apply` with this directory's data. Every step checks before
 # acting, so rerunning it is safe.
 #
-#   ./install.sh [machine] [seder apply options]    machine defaults to laptop
+#   ./install.sh [machine] [--no-pull] [seder apply options]
+#
+# machine defaults to laptop. Checkouts are fast-forwarded to their
+# upstream (seder apply --pull) unless --no-pull is given; seder only
+# does that for checkouts without local commits or changes.
 #
 # PROJECTS (default ~/Projects) sets where luam and seder are cloned.
 
@@ -19,8 +23,16 @@ if [ "$(id -u)" -eq 0 ]; then
     exit 1
 fi
 
-MACHINE="${1:-laptop}"
-shift || true
+MACHINE=laptop
+PULL=(--pull)
+APPLY_ARGS=()
+for arg in "$@"; do
+    case "$arg" in
+        --no-pull) PULL=() ;;
+        -*) APPLY_ARGS+=("$arg") ;;
+        *) MACHINE="$arg" ;;
+    esac
+done
 PROJECTS="${PROJECTS:-$HOME/Projects}"
 LUAM_DIR="$PROJECTS/luam"
 SEDER_DIR="$PROJECTS/seder"
@@ -52,7 +64,16 @@ clone() {
 clone https://github.com/BenSiv/luam.git "$LUAM_DIR"
 clone https://github.com/BenSiv/seder.git "$SEDER_DIR"
 
-if [ ! -f "$LUAM_DIR/obj/liblua.a" ] || [ ! -x "$LUAM_DIR/bin/luam" ]; then
+# seder updates every other checkout, but it can't update the binary it
+# runs as, so luam and seder are fast-forwarded here, before building.
+if [ "${#PULL[@]}" -gt 0 ]; then
+    for dir in "$LUAM_DIR" "$SEDER_DIR"; do
+        git -C "$dir" pull --ff-only --quiet || echo "Not updating $dir (local commits or changes)"
+    done
+fi
+
+if [ ! -f "$LUAM_DIR/obj/liblua.a" ] || [ ! -x "$LUAM_DIR/bin/luam" ] \
+    || [ -n "$(find "$LUAM_DIR/src" -newer "$LUAM_DIR/obj/liblua.a" -print -quit)" ]; then
     (cd "$LUAM_DIR" && bash bld/build_lang.sh)
 fi
 # Always rebuilt (it takes a second), so a pulled seder is never run as
@@ -60,4 +81,4 @@ fi
 (cd "$SEDER_DIR" && LUAM_DIR="$LUAM_DIR" bash bld/build.sh)
 
 echo "Using $("$SEDER_DIR/bin/seder" --version) at $SEDER_DIR/bin/seder"
-exec "$SEDER_DIR/bin/seder" apply "machines/$MACHINE.lua" "$@"
+exec "$SEDER_DIR/bin/seder" apply "machines/$MACHINE.lua" "${PULL[@]}" "${APPLY_ARGS[@]}"

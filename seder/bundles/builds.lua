@@ -1,6 +1,13 @@
--- Builds of the checked-out projects, and their binaries on PATH. Each
--- build runs only while its output is missing; delete the output (or
--- rebuild by hand) to pick up new commits.
+-- Builds of the checked-out projects, and their binaries on PATH. A
+-- build reruns when its output is missing or older than a git-tracked
+-- file in its sources -- after a pull, an edit, or a luam change, since
+-- every static binary bundles luam's src and lib.
+
+-- The luam inputs every luam-built binary depends on.
+function luam_project(dir)
+    return {dir .. "/src", dir .. "/bld", "${projects}/luam/src", "${projects}/luam/lib"}
+end
+
 return {
     -- What the builds below compile or link against. luam's static
     -- build (lib/static/build.lua) compiles daat's sqlite3, bcrypt,
@@ -25,30 +32,40 @@ return {
             -- install.sh builds the interpreter and seder itself to bootstrap.
             {name = "luam", dir = "${projects}/luam",
              cmd = "bash bld/build_lang.sh",
-             creates = "${projects}/luam/bin/luam"},
+             creates = "${projects}/luam/bin/luam",
+             sources = {"${projects}/luam/src"}},
             {name = "luam libs", dir = "${projects}/luam",
              cmd = "bash bld/build_libs.sh",
-             creates = "${projects}/luam/lib/sqlite/lsqlite3.so"},
+             creates = "${projects}/luam/lib/sqlite/lsqlite3.so",
+             sources = {"${projects}/luam/src", "${projects}/luam/lib"}},
             {name = "seder", dir = "${projects}/seder",
              cmd = "bash bld/build.sh",
              env = {LUAM_DIR = "${projects}/luam"},
-             creates = "${projects}/seder/bin/seder"},
+             creates = "${projects}/seder/bin/seder",
+             sources = luam_project("${projects}/seder")},
             {name = "brain-ex", dir = "${projects}/brain-ex",
              cmd = "bash bld/build.sh",
              env = {LUAM_DIR = "${projects}/luam"},
-             creates = "${projects}/brain-ex/bin/brex"},
+             creates = "${projects}/brain-ex/bin/brex",
+             sources = luam_project("${projects}/brain-ex")},
             {name = "luametry", dir = "${projects}/luametry",
              cmd = "PATH=\"$LUAM_DIR/bin:$PATH\" bash bld/build.sh",
              env = {LUAM_DIR = "${projects}/luam", MANIFOLD_DIR = "${projects}/external/manifold"},
-             creates = "${projects}/luametry/bin/luametry"},
+             creates = "${projects}/luametry/bin/luametry",
+             -- entry.lua sits at the repo root rather than in src/.
+             sources = {"${projects}/luametry/src", "${projects}/luametry/bld",
+                        "${projects}/luametry/entry.lua",
+                        "${projects}/luam/src", "${projects}/luam/lib"}},
             {name = "daat", dir = "${projects}/daat",
              cmd = "bash bld/build.sh",
              env = {LUAM_DIR = "${projects}/luam"},
-             creates = "${projects}/daat/bin/daat"},
+             creates = "${projects}/daat/bin/daat",
+             sources = luam_project("${projects}/daat")},
             {name = "camopass", dir = "${projects}/camopass",
              cmd = "bash bld/build.sh",
              env = {LUAM_DIR = "${projects}/luam"},
-             creates = "${projects}/camopass/bin/camopass"},
+             creates = "${projects}/camopass/bin/camopass",
+             sources = luam_project("${projects}/camopass")},
         },
     },
     link = {
