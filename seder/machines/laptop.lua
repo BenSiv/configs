@@ -1,6 +1,7 @@
 -- Ben's laptop (Ubuntu desktop). Bundles are listed in apply order;
 -- within a run, all removals happen first, then all additions.
 return {
+    requires_seder = "0.2.0",
     vars = {
         projects = "~/Projects",
         configs = "${projects}/configs",

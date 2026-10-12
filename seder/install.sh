@@ -59,5 +59,5 @@ fi
 # the binary from before the pull.
 (cd "$SEDER_DIR" && LUAM_DIR="$LUAM_DIR" bash bld/build.sh)
 
-echo "Using $SEDER_DIR/bin/seder, built from $(git -C "$SEDER_DIR" log --oneline -1)"
+echo "Using $("$SEDER_DIR/bin/seder" --version) at $SEDER_DIR/bin/seder"
 exec "$SEDER_DIR/bin/seder" apply "machines/$MACHINE.lua" "$@"
