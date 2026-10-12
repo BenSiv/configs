@@ -12,6 +12,13 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
+# As root, ~ is /root (a separate, stale checkout) and the desktop
+# session's D-Bus is out of reach. sudo is asked for per step instead.
+if [ "$(id -u)" -eq 0 ]; then
+    echo "Run install.sh as your own user, not root or sudo; it asks for sudo when needed." >&2
+    exit 1
+fi
+
 MACHINE="${1:-laptop}"
 shift || true
 PROJECTS="${PROJECTS:-$HOME/Projects}"
@@ -52,4 +59,5 @@ fi
 # the binary from before the pull.
 (cd "$SEDER_DIR" && LUAM_DIR="$LUAM_DIR" bash bld/build.sh)
 
+echo "Using $SEDER_DIR/bin/seder, built from $(git -C "$SEDER_DIR" log --oneline -1)"
 exec "$SEDER_DIR/bin/seder" apply "machines/$MACHINE.lua" "$@"
