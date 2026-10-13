@@ -34,9 +34,11 @@ return {
              cmd = "bash bld/build_lang.sh",
              creates = "${projects}/luam/bin/luam",
              sources = {"${projects}/luam/src"}},
+            -- build_libs builds nine modules; obj/libs.built is written only
+            -- when all of them built, so a partial build is retried.
             {name = "luam libs", dir = "${projects}/luam",
              cmd = "bash bld/build_libs.sh",
-             creates = "${projects}/luam/lib/sqlite/lsqlite3.so",
+             creates = "${projects}/luam/obj/libs.built",
              sources = {"${projects}/luam/src", "${projects}/luam/lib"}},
             {name = "seder", dir = "${projects}/seder",
              cmd = "bash bld/build.sh",
