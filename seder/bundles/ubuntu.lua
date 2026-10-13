@@ -17,6 +17,15 @@ return {
         -- gimp comes from apt instead; code is replaced by Antigravity.
         absent = {"gimp", "firefox", "code"},
     },
+    -- Blur my Shell from extensions.gnome.org (Debian packages it instead).
+    run = {
+        present = {
+            {name = "extension blur-my-shell@aunetx",
+             cmd = "~/.local/bin/gnome-extensions-cli install blur-my-shell@aunetx",
+             creates = "~/.local/share/gnome-shell/extensions/blur-my-shell@aunetx",
+             env = {DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${uid}/bus"}},
+        },
+    },
     dconf = {
         present = {
             {key = "/org/gnome/shell/extensions/dash-to-dock/dock-position",

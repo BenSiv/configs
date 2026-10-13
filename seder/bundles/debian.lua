@@ -27,6 +27,8 @@ return {
     apt = {
         present = {
             "gnome-core", "flatpak",
+            -- Matched to Debian's GNOME version; enabled in gnome.lua.
+            "gnome-shell-extension-blur-my-shell",
             -- Held by the `gnome` metapackage, which the cleanup removes.
             "network-manager", "gstreamer1.0-libav", "gstreamer1.0-plugins-ugly",
         },
@@ -40,7 +42,13 @@ return {
             "gnome-remote-desktop",
             -- LibreOffice data left behind (LibreOffice itself is in gnome.lua).
             "libreoffice-help-en-us", "hyphen-en-us", "mythes-en-us",
+            -- Parental Controls; only recommended by GNOME Settings.
+            "malcontent-gui",
         },
+    },
+    path = {
+        -- The extensions.gnome.org copy, which would override the package.
+        absent = {"~/.local/share/gnome-shell/extensions/blur-my-shell@aunetx"},
     },
     link = {
         present = {
@@ -58,6 +66,10 @@ return {
             hide("org.gnome.Terminal.Preferences.desktop"),
             hide("debian-xterm.desktop"),
             hide("debian-uxterm.desktop"),
+            hide("texdoctk.desktop"),       -- from texlive-base, which xetex needs
+            -- Files with a folder icon instead of the filing cabinet.
+            {path = "~/.local/share/applications/org.gnome.Nautilus.desktop",
+             target = "${configs}/gnome/org.gnome.Nautilus.desktop"},
         },
     },
     flatpak = {
