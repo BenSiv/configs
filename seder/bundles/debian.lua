@@ -52,6 +52,12 @@ return {
             hide("org.gnome.Snapshot.desktop"),
             hide("simple-scan.desktop"),
             hide("org.gnome.Tecla.desktop"),
+            -- Ptyxis is the terminal on every distribution; gnome-core
+            -- accepts it in place of GNOME Terminal, which Debian picks.
+            hide("org.gnome.Terminal.desktop"),
+            hide("org.gnome.Terminal.Preferences.desktop"),
+            hide("debian-xterm.desktop"),
+            hide("debian-uxterm.desktop"),
         },
     },
     flatpak = {
