@@ -13,7 +13,7 @@ return {
     apt = {
         present = {
             "gnome-tweaks", "dconf-cli", "pipx", "gnome-shell-extension-manager",
-            "gimp", "ptyxis",
+            "gimp", "ptyxis", "file-roller", "seahorse",
         },
         absent = {
             "aisleriot", "gnome-mahjongg", "gnome-mines", "gnome-sudoku",

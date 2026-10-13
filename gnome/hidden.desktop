@@ -1,0 +1,7 @@
+[Desktop Entry]
+# Linked over an app's .desktop file in ~/.local/share/applications to hide
+# it: Hidden=true makes GNOME treat the app as not installed (no grid,
+# search or "open with"). seder's debian bundle places these links.
+Type=Application
+Name=Hidden
+Hidden=true
