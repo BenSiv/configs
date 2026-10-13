@@ -83,11 +83,12 @@ return {
     },
     dconf = {
         present = {
-            -- The app grid, one page in this order (desktop IDs as Debian and
+            -- The app grid, one page in this order with the folders last
+            -- (KeePassXC lives in Utilities; desktop IDs as Debian and
             -- Flathub ship them; Debian's GIMP is gimp.desktop). Rearranging
             -- icons by hand is undone by the next apply: change it here.
             {key = "/org/gnome/shell/app-picker-layout",
-             value = "[{'org.gnome.Ptyxis.desktop': <{'position': <0>}>, 'app.zen_browser.zen.desktop': <{'position': <1>}>, 'google-chrome.desktop': <{'position': <2>}>, 'org.gnome.Nautilus.desktop': <{'position': <3>}>, 'com.rtosta.zapzap.desktop': <{'position': <4>}>, 'org.gnome.Software.desktop': <{'position': <5>}>, 'org.onlyoffice.desktopeditors.desktop': <{'position': <6>}>, 'micro.desktop': <{'position': <7>}>, 'vlc.desktop': <{'position': <8>}>, 'gimp.desktop': <{'position': <9>}>, 'com.github.PintaProject.Pinta.desktop': <{'position': <10>}>, 'Utilities': <{'position': <11>}>, 'System': <{'position': <12>}>, 'org.keepassxc.KeePassXC.desktop': <{'position': <13>}>, 'com.google.AndroidStudio.desktop': <{'position': <14>}>}]"},
+             value = "[{'org.gnome.Ptyxis.desktop': <{'position': <0>}>, 'app.zen_browser.zen.desktop': <{'position': <1>}>, 'google-chrome.desktop': <{'position': <2>}>, 'org.gnome.Nautilus.desktop': <{'position': <3>}>, 'com.rtosta.zapzap.desktop': <{'position': <4>}>, 'org.gnome.Software.desktop': <{'position': <5>}>, 'org.onlyoffice.desktopeditors.desktop': <{'position': <6>}>, 'micro.desktop': <{'position': <7>}>, 'vlc.desktop': <{'position': <8>}>, 'gimp.desktop': <{'position': <9>}>, 'com.github.PintaProject.Pinta.desktop': <{'position': <10>}>, 'com.google.AndroidStudio.desktop': <{'position': <11>}>, 'Utilities': <{'position': <12>}>, 'System': <{'position': <13>}>}]"},
         },
     },
 }

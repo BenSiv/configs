@@ -40,7 +40,7 @@ return {
              value = "false"},
             -- The app grid, with Ubuntu's snap app IDs.
             {key = "/org/gnome/shell/app-picker-layout",
-             value = "[{'org.gnome.Ptyxis.desktop': <{'position': <0>}>, 'google-chrome.desktop': <{'position': <1>}>, 'zen-browser-snap_zen-browser.desktop': <{'position': <2>}>, 'antigravity.desktop': <{'position': <3>}>, 'micro.desktop': <{'position': <4>}>, 'whatsapp-linux-app_whatsapp-linux-app.desktop': <{'position': <5>}>, 'onlyoffice-desktopeditors_onlyoffice-desktopeditors.desktop': <{'position': <6>}>, 'org.gnome.Nautilus.desktop': <{'position': <7>}>, 'snap-store_snap-store.desktop': <{'position': <8>}>}, {'System': <{'position': <0>}>, 'Utilities': <{'position': <1>}>, 'org.gimp.GIMP.desktop': <{'position': <2>}>, 'vlc.desktop': <{'position': <3>}>, 'org.keepassxc.KeePassXC.desktop': <{'position': <4>}>, 'android-studio_android-studio.desktop': <{'position': <5>}>}]"},
+             value = "[{'org.gnome.Ptyxis.desktop': <{'position': <0>}>, 'google-chrome.desktop': <{'position': <1>}>, 'zen-browser-snap_zen-browser.desktop': <{'position': <2>}>, 'antigravity.desktop': <{'position': <3>}>, 'micro.desktop': <{'position': <4>}>, 'whatsapp-linux-app_whatsapp-linux-app.desktop': <{'position': <5>}>, 'onlyoffice-desktopeditors_onlyoffice-desktopeditors.desktop': <{'position': <6>}>, 'org.gnome.Nautilus.desktop': <{'position': <7>}>, 'snap-store_snap-store.desktop': <{'position': <8>}>}, {'System': <{'position': <0>}>, 'Utilities': <{'position': <1>}>, 'org.gimp.GIMP.desktop': <{'position': <2>}>, 'vlc.desktop': <{'position': <3>}>, 'android-studio_android-studio.desktop': <{'position': <4>}>}]"},
         },
     },
 }
