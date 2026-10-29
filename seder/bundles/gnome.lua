@@ -85,7 +85,12 @@ return {
              value = "'System'"},
             {key = "/org/gnome/desktop/interface/color-scheme",
              value = "'prefer-dark'"},
-            {key = "/org/gnome/desktop/interface/accent-color",
+{key = "/org/gnome/desktop/input-sources/mru-sources",
+              value = "[('xkb', 'us'), ('xkb', 'il'), ('xkb', 'he')]"},
+{key = "/org/gnome/desktop/input-sources/sources",
+              value = "[('xkb', 'us'), ('xkb', 'il'), ('xkb', 'he')]"},
+{key = "/org/gnome/desktop/interface/accent-color",
+
              value = "'orange'"},
             {key = "/org/gnome/desktop/background/picture-uri",
              value = "'file://${home}/Pictures/cosy_cabin.png'"},
