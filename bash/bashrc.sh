@@ -9,8 +9,8 @@ if [ -f ~/.path_addons ]; then
     . ~/.path_addons
 fi
 
-export LUA_PATH="$HOME/Projects/luam/lib/?.lua;;"
-export LUA_CPATH="$HOME/Projects/luam/lib/?.so;$HOME/Projects/luam/lib/?/?.so;;"
+export LUA_PATH="${PROJECTS:-$HOME/Projects}/luam/lib/?.lua;;"
+export LUA_CPATH="${PROJECTS:-$HOME/Projects}/luam/lib/?.so;${PROJECTS:-$HOME/Projects}/luam/lib/?/?.so;;"
 export TERM=xterm-256color
 
 export PATH=$PATH:/home/bensiv/projects/Odin
