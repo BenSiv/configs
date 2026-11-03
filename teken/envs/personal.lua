@@ -7,9 +7,9 @@
 --
 --   tkn switch envs/personal.lua
 return {
-    requires_teken = "0.2.0",
+    requires_teken = "0.3.0",
     target = "home",
-    units = {"luam-stack", "dotfiles", "home-shell"},
+    units = {"luam-stack", "dotfiles", "home-shell", "projects"},
     state = {
         {path = "~/Projects"},
     },

@@ -1,8 +1,6 @@
 -- Written by tkn lock / tkn update. Commit it with the spec.
 return {
-    fetch = {
-        ["https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem"] = "90a6f1a7978a1b1b096dca6c57511ca48d3b8cf052f8e704baf358f34ea2f21b",
-    },
+    fetch = {},
     images = {
         ["ubuntu:24.04"] = "sha256:fe81560990fae86dc4743202b2cb4d3df98d0bcf949173cecef15ce1127ef852",
     },
@@ -14,10 +12,6 @@ return {
         camopass = {
             commit = "72dcac09efab3044a5d842d438407b330f0026dc",
             git = "https://github.com/BenSiv/camopass.git",
-        },
-        configs = {
-            commit = "cbc65a3475ba7031de4a96c0c62e84f127f1c8f8",
-            git = "https://github.com/BenSiv/configs.git",
         },
         daat = {
             commit = "87db22eac6be3169d5c776089ccbebc361c72a8d",
@@ -31,12 +25,8 @@ return {
             commit = "01e180362ccad4c9b11ec53514ba8c2fa342935b",
             git = "https://github.com/BenSiv/seder.git",
         },
-        software = {
-            commit = "1eecc8fd7fce99f8e9972ba74e605479eebffb8f",
-            git = "https://github.com/celleste-bio/software.git",
-        },
         teken = {
-            commit = "e36a781ff2aa18d4b4b755882ca4685ce3c9c094",
+            commit = "8777bcff784eba329c861054c3552da4b4d49be4",
             git = "https://github.com/BenSiv/teken.git",
         },
     },

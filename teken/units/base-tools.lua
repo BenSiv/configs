@@ -1,14 +1,13 @@
--- Command-line tools of the dev container (the Containerfile's apt list).
--- teken installs with --no-install-recommends, so what the old image got
--- by recommendation is listed explicitly (tzdata, gnupg, xz-utils, ...).
+-- Command-line tools of the personal container, after seder's base and
+-- dev bundles. teken installs with --no-install-recommends, so what a
+-- desktop install gets by recommendation is listed explicitly.
 return {
     apt = {
-        "tzdata", "curl", "wget", "gnupg", "unzip", "xz-utils", "zstd",
-        "tree", "jq", "micro", "sqlite3", "bats", "wl-clipboard",
-        "pandoc", "texlive-xetex", "cmark", "cmark-gfm", "poppler-utils",
-        "gnuplot-nox", "openscad", "postgresql-client", "mariadb-client",
-        "nodejs", "npm", "python3", "python3-venv", "python3-pip",
+        "tzdata", "curl", "wget", "gnupg", "unzip", "xz-utils",
+        "make", "fd-find", "ripgrep", "jq", "tree", "micro", "sqlite3",
+        "bats", "pandoc", "cmark-gfm", "pass",
+        "lua5.1", "liblua5.1-0-dev", "luarocks",
     },
-    env = {TZ = "Asia/Jerusalem"},
-    verify = {"micro --version", "sqlite3 --version", "pandoc --version"},
+    env = {TZ = "America/Los_Angeles"},
+    verify = {"micro --version", "sqlite3 --version", "rg --version"},
 }

@@ -1,6 +1,7 @@
 -- The work machine: WSL (Ubuntu) on Windows 11. The luam tools on PATH
 -- and the dotfiles from this repo, linked through the active generation.
--- The checkouts in ~/Projects are state: teken never touches them.
+-- The checkouts in ~/Projects are state: cloned when missing, never
+-- touched after.
 -- The dev container (devenv.lua) runs on this machine too.
 --
 -- Host prerequisites (no seder here): build-essential libreadline-dev
@@ -8,9 +9,9 @@
 --
 --   tkn switch envs/work.lua
 return {
-    requires_teken = "0.2.0",
+    requires_teken = "0.3.0",
     target = "home",
-    units = {"luam-stack", "dotfiles", "home-shell"},
+    units = {"luam-stack", "dotfiles", "home-shell", "projects", "work-projects"},
     state = {
         {path = "~/Projects"},
     },

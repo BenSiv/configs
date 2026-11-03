@@ -1,28 +1,23 @@
--- The Celleste dev container, ported from software/devenv/bensiv
--- (Containerfile + deploy.sh). Every repo lives on the devenv-projects
--- volume at /root/projects, so rebuilding or swapping the image never
--- loses work; `devenv-clone` fills in missing checkouts there.
+-- The personal dev container: the personal laptop's tools (personal.lua)
+-- in a container, for working on the luam projects anywhere podman runs.
+-- Every repo lives on the devenv-personal volume at /root/Projects, the
+-- same layout as ~/Projects on the laptop, so a rebuild never loses work;
+-- missing checkouts are cloned on start. The work container is
+-- specified in celleste-bio/software (devenv/bensiv).
 --
---   tkn build  envs/devenv.lua     # build and verify the image only
---   tkn switch envs/devenv.lua     # swap the running container
+--   tkn build  envs/devenv.lua
+--   tkn switch envs/devenv.lua
 return {
-    requires_teken = "0.2.0",
+    requires_teken = "0.3.0",
     target = "container",
-    vars = {rnd_path = "~/rnd"},
-    units = {
-        "build-deps", "base-tools", "luam-stack", "dotfiles",
-        "cloud-clis", "node-tools", "python", "celleste",
-    },
+    units = {"build-deps", "base-tools", "luam-stack", "dotfiles", "projects"},
     state = {
-        {path = "/root/projects", volume = "devenv-projects"},   -- every repo and worktree
-        {path = "/data", volume = "celleste-bensiv-data"},       -- brex database
-        {path = "/root/rnd", bind = "${rnd_path}"},
+        {path = "/root/Projects", volume = "devenv-personal"},   -- every repo and worktree
     },
     container = {
-        name = "celleste-bensiv",
+        name = "devenv-personal",
         base = "ubuntu:24.04",
-        hostname = "celleste-bensiv",
-        ports = {"8000:8000", "8080:8080"},
+        hostname = "devenv-personal",
         tty = true,
         restart = "always",
         command = {"bash"},
