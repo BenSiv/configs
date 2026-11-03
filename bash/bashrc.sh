@@ -9,8 +9,12 @@ if [ -f ~/.path_addons ]; then
     . ~/.path_addons
 fi
 
-export LUA_PATH="${PROJECTS:-$HOME/Projects}/luam/lib/?.lua;;"
-export LUA_CPATH="${PROJECTS:-$HOME/Projects}/luam/lib/?.so;${PROJECTS:-$HOME/Projects}/luam/lib/?/?.so;;"
+# luam's libraries: from the teken generation (LUAM_LIB, set in
+# ~/.path_addons or the image), built from the same commit as luam itself;
+# else from the checkout, which needs bld/build_libs.sh for its modules.
+LUAM_LIB="${LUAM_LIB:-${PROJECTS:-$HOME/Projects}/luam/lib}"
+export LUA_PATH="$LUAM_LIB/?.lua;;"
+export LUA_CPATH="$LUAM_LIB/?.so;$LUAM_LIB/?/?.so;;"
 export TERM=xterm-256color
 
 export PATH=$PATH:/home/bensiv/projects/Odin

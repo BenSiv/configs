@@ -8,6 +8,9 @@ return {
         "bats", "pandoc", "cmark-gfm", "pass",
         "lua5.1", "liblua5.1-0-dev", "luarocks",
     },
-    env = {TZ = "America/Los_Angeles"},
+    env = {
+        TZ = "America/Los_Angeles",
+        LUAM_LIB = "/opt/teken/lib/luam",   -- luam-stack's lib/ (bashrc)
+    },
     verify = {"micro --version", "sqlite3 --version", "rg --version"},
 }

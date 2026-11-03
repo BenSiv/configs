@@ -25,7 +25,9 @@ return {
          -- tool below runs, needs its lfs module. It needs libsqlite3-dev
          -- and libmariadb-dev (seder's builds bundle installs them).
          cmd = "bash bld/build_lang.sh && bash bld/build_libs.sh",
-         install = {["bin/luam"] = "bin/luam", ["bin/luamc"] = "bin/luamc"}},
+         -- lib/: luam's Lua libraries and the modules build_libs compiled,
+         -- found through LUAM_LIB (bashrc).
+         install = {["bin/luam"] = "bin/luam", ["bin/luamc"] = "bin/luamc", ["lib"] = "lib/luam"}},
         luam_tool("seder", "seder", "seder"),
         luam_tool("teken", "teken", "tkn"),
         luam_tool("brex", "brain_ex", "brex"),
