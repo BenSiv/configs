@@ -26,7 +26,7 @@ return {
             git = "https://github.com/BenSiv/seder.git",
         },
         teken = {
-            commit = "d1584bb32c60fd7cd7c3e8bcc0cb37754fc6d4df",
+            commit = "26660f784c4e5a68a354e1ed2f17b503dc5d6f26",
             git = "https://github.com/BenSiv/teken.git",
         },
     },
