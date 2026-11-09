@@ -11,9 +11,10 @@
 return {
     requires_teken = "0.3.0",
     target = "home",
-    units = {"luam-stack", "dotfiles", "home-shell", "projects", "work-projects"},
+    units = {"luam-stack", "dotfiles", "home-shell", "projects", "work-projects", "personal-repos"},
     state = {
         {path = "~/Projects"},
+        {path = "~/Personal"},
     },
     keep = 3,
 }
