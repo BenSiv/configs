@@ -9,11 +9,12 @@ return {
     },
     repo = {
         present = {
-            {path = "${projects}/configs", url = "https://github.com/BenSiv/configs.git"},
+            {path = "${configs}", url = "https://github.com/BenSiv/configs.git"},
             {path = "${projects}/automations", url = "https://github.com/BenSiv/lua-automations.git"},
             {path = "${projects}/brain-ex", url = "https://github.com/BenSiv/brain-ex.git"},
             {path = "${projects}/luam", url = "https://github.com/BenSiv/luam.git"},
             {path = "${projects}/seder", url = "https://github.com/BenSiv/seder.git"},
+            {path = "${projects}/teken", url = "https://github.com/BenSiv/teken.git"},
             {path = "${projects}/luametry", url = "https://github.com/BenSiv/luametry.git"},
             {path = "${projects}/daat", url = "https://github.com/BenSiv/daat.git"},
             {path = "${projects}/camopass", url = "https://github.com/BenSiv/camopass.git"},
