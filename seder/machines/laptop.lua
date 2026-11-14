@@ -4,7 +4,7 @@ return {
     requires_seder = "0.4.0",
     vars = {
         projects = "~/Projects",
-        configs = "${projects}/configs",
+        configs = "~/Personal/configs",
         timezone = "America/Los_Angeles",
         -- The phone's Passtore folder, mounted by GNOME when it is
         -- connected over USB (MTP).

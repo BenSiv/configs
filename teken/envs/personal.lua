@@ -1,6 +1,6 @@
 -- The personal laptop: Debian 13 with GNOME, put in order by seder
 -- (../seder/machines/laptop.lua), which also installs the build
--- prerequisites. Same units as work.lua.
+-- prerequisites.
 --
 -- seder's dotfiles and builds bundles link the same paths (~/.bashrc,
 -- /usr/local/bin/<tool>); see the README before the first switch here.
@@ -9,9 +9,10 @@
 return {
     requires_teken = "0.3.0",
     target = "home",
-    units = {"luam-stack", "dotfiles", "home-shell", "projects"},
+    units = {"luam-stack", "dotfiles", "home-shell", "projects", "personal-repos"},
     state = {
         {path = "~/Projects"},
+        {path = "~/Personal"},
     },
     keep = 3,
 }

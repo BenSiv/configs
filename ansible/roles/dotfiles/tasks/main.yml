@@ -85,6 +85,32 @@
         state: link
         force: yes
 
+- name: Configure FreeCAD
+  block:
+    # FreeCAD <= 1.0 reads Mod/ directly; 1.1+ uses a per-version v1-1/ dir.
+    - name: Create FreeCAD Mod Directories
+      file:
+        path: "{{ user_home }}/.local/share/FreeCAD/{{ item }}"
+        state: directory
+        owner: "{{ real_user }}"
+        group: "{{ real_user }}"
+        mode: '0755'
+      loop:
+        - "Mod"
+        - "v1-1/Mod"
+
+    - name: Symlink FreeCAD Minimal UI Mod
+      file:
+        src: "{{ user_home }}/Projects/configs/freecad/Minimal"
+        dest: "{{ user_home }}/.local/share/FreeCAD/{{ item }}/Minimal"
+        state: link
+        owner: "{{ real_user }}"
+        group: "{{ real_user }}"
+        force: yes
+      loop:
+        - "Mod"
+        - "v1-1/Mod"
+
 - name: Configure IDE User Settings
   block:
     - name: Create IDE Config Directories
